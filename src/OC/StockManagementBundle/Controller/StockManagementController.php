@@ -10,9 +10,18 @@ use GuzzleHttp\Client;
 
 class StockManagementController extends Controller
 {
-    public function viewCategoriesAction() {
-        $categories = $this->container->get('oc_platform.get.catalog')->getCategories();
+    public function viewCategoryAction() {
+        $category = $this->container->get('oc_platform.get.catalog')->getCategory();
 
-        var_dump($categories);
+        var_dump($category);
+    }
+
+    public function manageCategoryAction() {
+        $em = $this->getDoctrine()->getManager();
+
+
+        //getCategory n'existe pas
+        $category = $em->getRepository('OCPlatformBundle:Category')->getcategory();
+
     }
 }
