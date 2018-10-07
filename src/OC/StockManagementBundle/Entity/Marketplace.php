@@ -24,14 +24,14 @@ class Marketplace
     /**
      * @var string
      *
-     * @ORM\Column(name="url", type="text", length=255, unique=true)
+     * @ORM\Column(name="url", type="string", length=255, unique=true)
      */
     private $url;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="text", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
 
