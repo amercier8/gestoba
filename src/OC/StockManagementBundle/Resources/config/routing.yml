@@ -1,0 +1,9 @@
+oc_stock_management_homepage:
+    path:     /
+    defaults: { _controller: OCStockManagementBundle:Default:index }
+
+oc_stock_management_viewCategories:
+    path:     /viewCategories
+    defaults:
+        _controller: OCStockManagementBundle:StockManagement:viewCategories
+
