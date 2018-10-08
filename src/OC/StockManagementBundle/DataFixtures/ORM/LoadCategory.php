@@ -50,7 +50,7 @@ class LoadCategory implements FixtureInterface
             57,
         );
 
-        $positionIds = array(
+        $positions = array(
             10,
             2,
             2,
@@ -88,15 +88,17 @@ class LoadCategory implements FixtureInterface
             '56',
         );
 
-        for ($i = 0; $i < count($parentId); $i++) {
+        for ($i = 0; $i < count($parentIds); $i++) {
             $category = new Category();
             $category->setName($names[$i]);
             $category->setId($ids[$i]);
-            $category->setPositionId($positionIds[$i]);
-            $category->setParentIds($parentIds[$i]);
+            $category->setPosition($positions[$i]);
+            $category->setParentId($parentIds[$i]);
 
         // On la persiste
-        $manager->persist($advert);
+        $manager->persist($category);
         }
+
+        $manager->flush();
     }
 }
