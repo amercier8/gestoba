@@ -10,5 +10,28 @@ namespace OC\StockManagementBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
-    
+    public function getFirstLevelCategories() {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->where('c.parentId is NULL')
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getChildCategories($parentCategoryId) {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->where('c.parentId = :parentId')
+                ->setParameter('parentId', $parentCategoryId)
+        ;
+
+        return $qb
+        ->getQuery()
+        ->getResult()
+    ;
+    }
 }

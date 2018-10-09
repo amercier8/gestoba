@@ -3,5 +3,25 @@
 {% block title %}{{ parent() }}Page de gestion des niveaux de Stock{% endblock %}
 
 {% block body %}
-    Ici on doit afficher l'arbo de catégories, et permettre de renseigner un niveau de stock bas.
+    <ul>
+    {% for category in listCategories %}
+        <li>{{ category.name }}</li>
+        <ul>
+            {% for childCategory in childCategories %}
+                <li>{{ dump(childCategory) }}</li>
+
+            {% endfor %}   
+        </ul>
+    {% endfor %}
+    </ul>
+    {# <ul>
+    {% for category in listAllCategories %}
+        {% if category.parentId is null %}
+            <li>{{ category.name }}</li>
+            {% if category.id == category.parentId %}
+                <li>{{ category.name }}</li>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    </ul> #}
 {% endblock %}

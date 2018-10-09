@@ -16,12 +16,39 @@ class StockManagementController extends Controller
         var_dump($category);
     }
 
-    public function manageCategoryAction() {
-        $em = $this->getDoctrine()->getManager();
+    public function manageCategoriesAction() {
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('OCStockManagementBundle:Category')
+        ;
+
+        $listCategories = $repository->getFirstLevelCategories();
+
+        
+        // $childCategories = $repository->getChildCategories();
 
 
-        //getCategory n'existe pas
-        $category = $em->getRepository('OCPlatformBundle:Category')->getcategory();
+        foreach ($listCategories as $category) {
+            // $childCategories = $repository->getChildCategories($category->getId());
+            $childCategories[$category->getId()] = $repository->getChildCategories($category->getId());
+
+
+            //$childCategories[$category->getId()] = $repository->getChildCategories($category->getId($category->getId()));
+
+            //TODO : faire en sorte d'avoir plusieurs variables $childCategories créées, sous la forme "childCategories[parentCategoryId]"
+            // $childCategories = array();
+            // array_push($childCategories, $repository->getChildCategories($category->getId()));
+        }
+
+        $listAllCategories = $repository->findAll();
+
+		return $this->render('OCStockManagementBundle:Category:manageCategories.html.twig', array(
+            'listCategories' => $listCategories,
+            'childCategories' => $childCategories,
+            // 'listAllCategories' => $listAllCategories
+        ));
 
     }
+
 }
