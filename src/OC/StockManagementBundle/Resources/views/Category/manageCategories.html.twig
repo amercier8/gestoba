@@ -6,22 +6,16 @@
     <ul>
     {% for category in listCategories %}
         <li>{{ category.name }}</li>
+        {# <li>{{dump(category)}}</li> #}
         <ul>
             {% for childCategory in childCategories %}
-                <li>{{ dump(childCategory) }}</li>
-
+                {# <li>{{ dump(childCategory[category.id]) }}</li> #}
+                {% for childCategory in childCategory[category.id] %}
+                    <li>{{childCategory.name}}</li>
+                {% endfor %} 
             {% endfor %}   
         </ul>
     {% endfor %}
     </ul>
-    {# <ul>
-    {% for category in listAllCategories %}
-        {% if category.parentId is null %}
-            <li>{{ category.name }}</li>
-            {% if category.id == category.parentId %}
-                <li>{{ category.name }}</li>
-            {% endif %}
-        {% endif %}
-    {% endfor %}
-    </ul> #}
+
 {% endblock %}
