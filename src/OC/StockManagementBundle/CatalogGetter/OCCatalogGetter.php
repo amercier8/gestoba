@@ -2,7 +2,7 @@
 
 namespace OC\StockManagementBundle\CatalogGetter;
 
-use GuzzleHttp\Client;
+// use \GuzzleHttp;
 // use Doctrine\ORM\EntityManager;
 // use OC\PlatformBundle\Entity\Advert;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,7 +15,7 @@ class OCCatalogGetter
 {
 
     public function getCategories() {
-        $client = new Client([
+        $client = new GuzzleHttp\Client([
             // Base URI is used with relative requests
             'base_uri' => 'https://alexandbox.sandbox.wizaplace.com/api/v1',
             // You can set any number of default request options.

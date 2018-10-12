@@ -13,7 +13,8 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
     public function getFirstLevelCategories() {
         $qb = $this->createQueryBuilder('c');
 
-        $qb->where('c.parentId is NULL')
+        $qb->where('c.parentId = :parentId')
+                ->setParameter('parentId', 0)
         ;
 
         return $qb

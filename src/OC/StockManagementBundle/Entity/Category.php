@@ -42,6 +42,37 @@ class Category
      */
     private $position;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="lowStock", type="integer")
+     */
+    private $lowStock;
+
+    /**
+     * Get lowStock.
+     *
+     * @return int
+     */
+    public function getLowStock()
+    {
+        return $this->lowStock;
+    }
+
+    /**
+     * Set LowStock.
+     *
+     * @param int $lowStock
+     *
+     * @return Category
+     */
+    public function setLowStock($lowStock)
+    {
+        $this->lowStock = $lowStock;
+
+        return $this;
+    }
+
 
     /**
      * Get id.

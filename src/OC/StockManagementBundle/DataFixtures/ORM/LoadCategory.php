@@ -70,7 +70,7 @@ class LoadCategory implements FixtureInterface
         );
 
         $parentIds = array(
-            null,
+            '0',
             '1',
             '1',
             '3',
@@ -78,7 +78,7 @@ class LoadCategory implements FixtureInterface
             '3',
             '2',
             '2',
-            null,
+            '0',
             '50',
             '50',
             '52',
@@ -88,12 +88,32 @@ class LoadCategory implements FixtureInterface
             '56',
         );
 
+        $lowStocks = array(
+            15,
+            20,
+            20,
+            50,
+            500,
+            10,
+            8,
+            50,
+            21,
+            30,
+            32,
+            9,
+            30,
+            7,
+            30,
+            30,
+        );
+
         for ($i = 0; $i < count($parentIds); $i++) {
             $category = new Category();
             $category->setName($names[$i]);
             $category->setId($ids[$i]);
             $category->setPosition($positions[$i]);
             $category->setParentId($parentIds[$i]);
+            $category->setLowStock($lowStocks[$i]);
 
         // On la persiste
         $manager->persist($category);
