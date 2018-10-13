@@ -4,9 +4,9 @@ oc_stock_management_homepage:
 
 
 oc_stock_management_viewCategory:
-    path:     /viewCategory
+    path:     /getCategories
     defaults:
-        _controller: OCStockManagementBundle:StockManagement:viewCategory
+        _controller: OCStockManagementBundle:StockManagement:getCategories
 
 oc_stock_management_manageCategories:
     path:     /manageCategory

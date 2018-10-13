@@ -27,9 +27,9 @@ class Category
     /**
      * Many Categories have One Category.
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="parentId", referencedColumnName="id")
      */
-    private $parent;
+    private $parentId;
 
 
     /**
@@ -47,12 +47,12 @@ class Category
      */
     private $name;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="parentId", type="integer")
-     */
-    private $parentId;
+    // /**
+    //  * @var int
+    //  *
+    //  * @ORM\Column(name="parentId", type="integer")
+    //  */
+    // private $parentId;
 
         /**
      * @var int
@@ -187,5 +187,65 @@ class Category
         $this->id = $id;
 
         return $this;
+    }
+
+    /**
+     * Add child.
+     *
+     * @param \OC\StockManagementBundle\Entity\Category $child
+     *
+     * @return Category
+     */
+    public function addChild(\OC\StockManagementBundle\Entity\Category $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child.
+     *
+     * @param \OC\StockManagementBundle\Entity\Category $child
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeChild(\OC\StockManagementBundle\Entity\Category $child)
+    {
+        return $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set parent.
+     *
+     * @param \OC\StockManagementBundle\Entity\Category|null $parent
+     *
+     * @return Category
+     */
+    public function setParent(\OC\StockManagementBundle\Entity\Category $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent.
+     *
+     * @return \OC\StockManagementBundle\Entity\Category|null
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 }

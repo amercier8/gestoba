@@ -70,22 +70,22 @@ class LoadCategory implements FixtureInterface
         );
 
         $parentIds = array(
-            '0',
-            '1',
-            '1',
-            '3',
-            '3',
-            '3',
-            '2',
-            '2',
-            '0',
-            '50',
-            '50',
-            '52',
-            '52',
-            '50',
-            '55',
-            '56',
+            12,
+            1,
+            1,
+            3,
+            3,
+            3,
+            2,
+            2,
+            10,
+            50,
+            50,
+            52,
+            52,
+            50,
+            55,
+            56,
         );
 
         $lowStocks = array(
@@ -107,7 +107,7 @@ class LoadCategory implements FixtureInterface
             30,
         );
 
-        for ($i = 0; $i < count($parentIds); $i++) {
+        for ($i = 0; $i < count($names); $i++) {
             $category = new Category();
             $category->setName($names[$i]);
             $category->setId($ids[$i]);
