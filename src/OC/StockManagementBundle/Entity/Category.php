@@ -36,6 +36,7 @@ class Category
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Id
      */
     private $id;
@@ -43,9 +44,7 @@ class Category
         /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(name="wizaplaceId", type="integer")
      */
     private $wizaplaceId;
 
@@ -66,7 +65,7 @@ class Category
         /**
      * @var int
      *
-     * @ORM\Column(name="position", type="integer")
+     * @ORM\Column(name="position", type="integer", nullable=true)
      */
     private $position;
 
@@ -226,5 +225,53 @@ class Category
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * Set wizaplaceId.
+     *
+     * @param int $wizaplaceId
+     *
+     * @return Category
+     */
+    public function setWizaplaceId($wizaplaceId)
+    {
+        $this->wizaplaceId = $wizaplaceId;
+
+        return $this;
+    }
+
+    /**
+     * Get wizaplaceId.
+     *
+     * @return int
+     */
+    public function getWizaplaceId()
+    {
+        return $this->wizaplaceId;
+    }
+
+    /**
+     * Set parentId.
+     *
+     * @param int|null $parentId
+     *
+     * @return Category
+     */
+    public function setParentId($parentId = null)
+    {
+        $this->parentId = $parentId;
+
+        return $this;
+    }
+
+    /**
+     * Get parentId.
+     *
+     * @return int|null
+     */
+    public function getParentId()
+    {
+        return $this->parentId;
     }
 }

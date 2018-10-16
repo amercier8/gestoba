@@ -19,31 +19,90 @@ class StockManagementController extends Controller
     public function getCategoriesAction() {
         $em = $this->getDoctrine()->getManager();
 
-        $categories = $this->container->get('oc_platform.get.catalog')->getCategories();
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('OCStockManagementBundle:Category')
+        ;
+
+        //////POUR TEST
+        // $hifi = array('name'=>'hifi', 'wizaplaceId'=>19, 'parentId'=>'null');
+        // $enceintes = array('name'=>'enceintes', 'wizaplaceId'=>20, 'parentId'=>19);   
+        // $amplis = array('name'=>'amplis', 'wizaplaceId'=>21, 'parentId'=>19);   
+
+        // $categoriesTest = array($hifi, $enceintes, $amplis);
+
+        // foreach($categoriesTest as $categoryTest) {
+        //     $category3 = new Category();
+
+        //     $category3
+        //         ->setName($categoryTest['name'])
+        //         ->setWizaplaceId($categoryTest['wizaplaceId'])
+        //     ;
+
+        //     $em->persist($category3);
+        // }
+
+        // $em->flush();
+        ////////FIN POUR TEST
+
+
+        //Ci-dessous : plus tard, d'abord test avec petit array
+        //$categories = $this->container->get('oc_platform.get.catalog')->getCategories();
+        //
 
         //renseigner les objets de test ici
+        $bricolage = array('name'=>'Bricolage', 'wizaplaceId'=>15, 'parentId'=>'null');
+        $tournevis = array('name'=>'tournevis', 'wizaplaceId'=>23, 'parentId'=>15);
+        $enceinteNomade = array('name'=>'enceinte nomade', 'wizaplaceId'=>89, 'parentId'=>1);
 
-        ///////
+        $categories = array($bricolage, $tournevis, $enceinteNomade);
+
+        var_dump($bricolage);
+        var_dump($tournevis);
+        var_dump($categories);
+
         foreach($categories as $category) {
-
             $category2 = new Category();
 
-            $category2
-                ->setName($category['name'])
-                // ->setParentId($category['parentId'])
-                ->setPosition($category['position'])
-                ->setId($category['id'])
+            $parent = $repository->findOneBy(
+                array('parentId' => $category['parentId'])
+            )
             ;
 
-            $em->persist($category2);
-        }
+            var_dump($parent);
 
-        $em->flush();
+            // $category2
+            //     ->setName($category['name'])
+            //     ->setParent($parent)
+            //     ->setWizaplaceId($category['id'])
+            // ;
+
+            // var_dump($category2);
+        }
+    }
+
+        ///////
+        // foreach($categories as $category) {
+
+        //     $category2 = new Category();
+
+        //     $category2
+        //         ->setName($category['name'])
+        //         // ->setParentId($category['parentId'])
+        //         ->setPosition($category['position'])
+        //         ->setId($category['id'])
+        //     ;
+
+        //     $em->persist($category2);
+        // }
+
+        // $em->flush();
 
         ///////
 
         // var_dump($categories[0]);
-    }
+    
 
     public function manageCategoriesAction() {
         //Categories
