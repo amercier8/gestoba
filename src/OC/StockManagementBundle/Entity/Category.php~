@@ -2,6 +2,7 @@
 
 namespace OC\StockManagementBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -29,8 +30,13 @@ class Category
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
      * @ORM\JoinColumn(name="parentId", referencedColumnName="id")
      */
-    private $parentId;
+    private $parent;
 
+    // public function setChildren($children) { //this will be an array collection so please pay attention
+    //     $this->children = $children;
+    
+    //     return $this;
+    // }
 
     /**
      * @var int
@@ -47,26 +53,30 @@ class Category
      */
     private $name;
 
-    // /**
-    //  * @var int
-    //  *
-    //  * @ORM\Column(name="parentId", type="integer")
-    //  */
-    // private $parentId;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="parentId", type="integer", nullable=true)
+     */
+    private $parentId;
 
         /**
      * @var int
      *
-     * @ORM\Column(name="position", type="integer")
+     * @ORM\Column(name="position", type="integer", nullable=true)
      */
     private $position;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="lowStock", type="integer")
+     * @ORM\Column(name="lowStock", type="integer", nullable=true)
      */
     private $lowStock;
+
+    public function getChildren() {
+        return $this->children;
+    }
 
     /**
      * Get lowStock.
@@ -187,65 +197,5 @@ class Category
         $this->id = $id;
 
         return $this;
-    }
-
-    /**
-     * Add child.
-     *
-     * @param \OC\StockManagementBundle\Entity\Category $child
-     *
-     * @return Category
-     */
-    public function addChild(\OC\StockManagementBundle\Entity\Category $child)
-    {
-        $this->children[] = $child;
-
-        return $this;
-    }
-
-    /**
-     * Remove child.
-     *
-     * @param \OC\StockManagementBundle\Entity\Category $child
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeChild(\OC\StockManagementBundle\Entity\Category $child)
-    {
-        return $this->children->removeElement($child);
-    }
-
-    /**
-     * Get children.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
-
-    /**
-     * Set parent.
-     *
-     * @param \OC\StockManagementBundle\Entity\Category|null $parent
-     *
-     * @return Category
-     */
-    public function setParent(\OC\StockManagementBundle\Entity\Category $parent = null)
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * Get parent.
-     *
-     * @return \OC\StockManagementBundle\Entity\Category|null
-     */
-    public function getParent()
-    {
-        return $this->parent;
     }
 }

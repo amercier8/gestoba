@@ -4,24 +4,36 @@
 
 {% block body %}
 {# LISTE DES CATEGORIES HIERARCHISEE #}
+{#
     <ul>
     {% for category in listCategories %}
         <li>{{ category.name }} // Niveau de stock bas: {{category.lowStock}}</li>
-        {# <li>{{dump(category)}}</li> #}
+        {# <li>{{dump(category)}}</li> 
         <ul>
             {% for childCategory in childCategories %}
-                {# <li>{{ dump(childCategory[category.id]) }}</li> #}
+                {# <li>{{ dump(childCategory[category.id]) }}</li> 
                 {% for childCategory in childCategory[category.id] %}
                     <li>{{childCategory.name}} // Niveau de stock bas: {{childCategory.lowStock}}</li>
                 {% endfor %} 
             {% endfor %}   
         </ul>
     {% endfor %}
+    </ul>#}
+
+    <ul>
+        {% for category in listCategories %}
+            <li><span>{{ category.name }}</span></li>
+            <ul>
+                {% for sub_category in category.children %}
+                    <li><span>{{ sub_category.name }}</span></li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
     </ul>
 
 {# FORMULAIRE #}
-<div class="well">
+{# <div class="well">
     {{ form(form) }}
-</div>
+</div> #}
 
 {% endblock %}

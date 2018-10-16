@@ -2,6 +2,7 @@
 
 namespace OC\StockManagementBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -27,10 +28,9 @@ class Category
     /**
      * Many Categories have One Category.
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="parentId", referencedColumnName="id")
      */
     private $parent;
-
 
     /**
      * @var int
@@ -39,6 +39,15 @@ class Category
      * @ORM\Id
      */
     private $id;
+
+        /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $wizaplaceId;
 
     /**
      * @var string
@@ -50,7 +59,7 @@ class Category
     /**
      * @var int
      *
-     * @ORM\Column(name="parentId", type="integer")
+     * @ORM\Column(name="parentId", type="integer", nullable=true)
      */
     private $parentId;
 
@@ -64,9 +73,13 @@ class Category
     /**
      * @var int
      *
-     * @ORM\Column(name="lowStock", type="integer")
+     * @ORM\Column(name="lowStock", type="integer", nullable=true)
      */
     private $lowStock;
+
+    public function getChildren() {
+        return $this->children;
+    }
 
     /**
      * Get lowStock.
@@ -127,30 +140,6 @@ class Category
         return $this->name;
     }
 
-    /**
-     * Set parentId.
-     *
-     * @param int $parentId
-     *
-     * @return Category
-     */
-    public function setParentId($parentId)
-    {
-        $this->parentId = $parentId;
-
-        return $this;
-    }
-
-    /**
-     * Get parentId.
-     *
-     * @return int
-     */
-    public function getParentId()
-    {
-        return $this->parentId;
-    }
-
         /**
      * Get position.
      *
@@ -187,5 +176,55 @@ class Category
         $this->id = $id;
 
         return $this;
+    }
+
+    /**
+     * Add child.
+     *
+     * @param \OC\StockManagementBundle\Entity\Category $child
+     *
+     * @return Category
+     */
+    public function addChild(\OC\StockManagementBundle\Entity\Category $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child.
+     *
+     * @param \OC\StockManagementBundle\Entity\Category $child
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeChild(\OC\StockManagementBundle\Entity\Category $child)
+    {
+        return $this->children->removeElement($child);
+    }
+
+    /**
+     * Set parent.
+     *
+     * @param \OC\StockManagementBundle\Entity\Category|null $parent
+     *
+     * @return Category
+     */
+    public function setParent(\OC\StockManagementBundle\Entity\Category $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent.
+     *
+     * @return \OC\StockManagementBundle\Entity\Category|null
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 }

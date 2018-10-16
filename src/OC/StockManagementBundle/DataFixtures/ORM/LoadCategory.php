@@ -70,7 +70,7 @@ class LoadCategory implements FixtureInterface
         );
 
         $parentIds = array(
-            12,
+            null,
             1,
             1,
             3,
@@ -79,7 +79,7 @@ class LoadCategory implements FixtureInterface
             2,
             2,
             10,
-            50,
+            null,
             50,
             52,
             52,
@@ -97,7 +97,7 @@ class LoadCategory implements FixtureInterface
             10,
             8,
             50,
-            21,
+            null,
             30,
             32,
             9,

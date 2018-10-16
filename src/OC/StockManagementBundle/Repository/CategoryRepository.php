@@ -31,9 +31,19 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
         ;
 
         return $qb
-        ->getQuery()
-        ->getResult()
-    ;
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    // public function getCategories() {
+    //     $qb = 
+    // }
+
+    public function createCategories($categories) {
+        $qb = $this->createQueryBuilder('c');
+
+        
     }
 
 }
