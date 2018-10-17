@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use GuzzleHttp\Client;
 use OC\StockManagementBundle\Entity\Category;
+use OC\StockManagementBundle\Form\CategoryType;
 
 
 class StockManagementController extends Controller
@@ -46,103 +47,71 @@ class StockManagementController extends Controller
         // $em->flush();
         ////////FIN POUR TEST
 
-
-        //Ci-dessous : plus tard, d'abord test avec petit array
-        //$categories = $this->container->get('oc_platform.get.catalog')->getCategories();
-        //
-
-        //renseigner les objets de test ici
+        $hifi = array('name'=>'hifi', 'wizaplaceId'=>19, 'parentId'=>'null');
         $bricolage = array('name'=>'Bricolage', 'wizaplaceId'=>15, 'parentId'=>'null');
         $tournevis = array('name'=>'tournevis', 'wizaplaceId'=>23, 'parentId'=>15);
-        $enceinteNomade = array('name'=>'enceinte nomade', 'wizaplaceId'=>89, 'parentId'=>1);
+        $enceinteNomade = array('name'=>'enceinte nomade', 'wizaplaceId'=>89, 'parentId'=>19);
+        $cableEnceinte = array('name'=>'cable enceinte', 'wizaplaceId'=>678, 'parentId'=>19);
+        $cableEnceinteCuivre = array('name'=>'cable enceinte cuivre', 'wizaplaceId'=>7878, 'parentId'=>678);
 
-        $categories = array($bricolage, $tournevis, $enceinteNomade);
-
-        var_dump($bricolage);
-        var_dump($tournevis);
-        var_dump($categories);
+        $categories = array($bricolage, $tournevis, $enceinteNomade, $cableEnceinte, $hifi, $cableEnceinteCuivre);
 
         foreach($categories as $category) {
-            $category2 = new Category();
+
+            if ($repository->findOneBy(array('wizaplaceId' => $category['wizaplaceId']))) {
+                $categoryToEdit = $repository->findOneBy(
+                    array('wizaplaceId' => $category['wizaplaceId'])
+                );
+            } else {
+                $categoryToEdit = new Category();
+            }
 
             $parent = $repository->findOneBy(
-                array('parentId' => $category['parentId'])
-            )
+                array('wizaplaceId' => $category['parentId'])
+            );
+
+            $categoryToEdit
+                ->setName($category['name'])
+                ->setParent($parent)
+                ->setWizaplaceId($category['wizaplaceId'])
             ;
 
-            var_dump($parent);
-
-            // $category2
-            //     ->setName($category['name'])
-            //     ->setParent($parent)
-            //     ->setWizaplaceId($category['id'])
-            // ;
-
-            // var_dump($category2);
+            $em->persist($categoryToEdit);
         }
+
+        $em->flush();
+
+        $listCategories = $repository->findAll();
+
+        return $this->render('OCStockManagementBundle:Category:manageCategories.html.twig', array(
+            'listCategories' => $listCategories,
+        ));
     }
-
-        ///////
-        // foreach($categories as $category) {
-
-        //     $category2 = new Category();
-
-        //     $category2
-        //         ->setName($category['name'])
-        //         // ->setParentId($category['parentId'])
-        //         ->setPosition($category['position'])
-        //         ->setId($category['id'])
-        //     ;
-
-        //     $em->persist($category2);
-        // }
-
-        // $em->flush();
-
-        ///////
-
-        // var_dump($categories[0]);
     
 
-    public function manageCategoriesAction() {
-        //Categories
+    public function manageCategoriesAction(Request $request) {
+
         $repository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('OCStockManagementBundle:Category')
-        ;
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('OCStockManagementBundle:Category')
+    ;
 
-        //$categories = $repository->getCategories();
-
-        $listCategories = $repository->getFirstLevelCategories();
-        // $listCategories = $repository->findAll();
-////
+        $category = new Category();
+        $form = $this->get('form.factory')->create(CategoryType::class, $category);
         
+        return $this->render('OCStockManagementBundle:Category:manageCategories.html.twig', array(
+            'form' => $form->createView(),
+            'listCategories' => $repository->findAll()
+        ));
 
-        // foreach ($listCategories as $category) {
-        //     $childCategories['parentId'][$category->getId()] = $repository->getChildCategories($category->getId());
-        // }
-        //End Categories
+        // $listCategories = $repository->getFirstLevelCategories();
 
-        //Form
-        //$category = new Category();
-
-        // $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $category);
-
-        // $formBuilder
-        //     ->add('name', TextType::class)
-        //     ->add('lowStock', IntegerType::class)
-        //     ->add('save', SubmitType::class)
-        // ;
-
-        // $form = $formBuilder->getForm();
-        //End Form
-
-            return $this->render('OCStockManagementBundle:Category:manageCategories.html.twig', array(
-                'listCategories' => $listCategories,
-                // 'childCategories' => $childCategories,
-                // 'form' => $form->createView(),
-            ));
+        // return $this->render('OCStockManagementBundle:Category:manageCategories.html.twig', array(
+        //     'listCategories' => $listCategories,
+        //     // 'childCategories' => $childCategories,
+        //     // 'form' => $form->createView(),
+        // ));
 
     }
 
