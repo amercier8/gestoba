@@ -7,6 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 
 class CategoryType extends AbstractType
@@ -20,9 +22,7 @@ class CategoryType extends AbstractType
             ->add('wizaplaceId', IntegerType::class)
             ->add('name', TextType::class)
             ->add('parentId', IntegerType::class)
-            // ->add('position', IntegerType::class)
             ->add('lowStock', IntegerType::class);
-            // ->add('parent');
     }/**
      * {@inheritdoc}
      */

@@ -62,13 +62,6 @@ class Category
      */
     private $parentId;
 
-        /**
-     * @var int
-     *
-     * @ORM\Column(name="position", type="integer", nullable=true)
-     */
-    private $position;
-
     /**
      * @var int
      *
@@ -137,30 +130,6 @@ class Category
     public function getName()
     {
         return $this->name;
-    }
-
-        /**
-     * Get position.
-     *
-     * @return int
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-        /**
-     * Set position.
-     *
-     * @param int $position
-     *
-     * @return Category
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-
-        return $this;
     }
 
         /**

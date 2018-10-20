@@ -3,23 +3,21 @@
 {% block title %}{{ parent() }}Page de gestion des niveaux de Stock{% endblock %}
 
 {% block body %}
-{# LISTE DES CATEGORIES HIERARCHISEE #}
 
-    <ul>
-        {% for category in listCategories %}
-            <li><span>{{ category.name }}</span></li>
-            <ul>
-                {% for sub_category in category.children %}
-                    <li><span>{{ sub_category.name }}</span></li>
-                {% endfor %}
-            </ul>
-        {% endfor %}
-    </ul>
+{% form_theme formCategories _self %}
 
-{# FORMULAIRE #}
+{% block integer_widget %}
+    <div class="integer_widget">
+        {% set type = type|default('number') %}
+        {{ block('form_widget_simple') }}
+    </div>
+{% endblock %}
 
-<div class="well">
-    {{ form_row(form.name) }}
-</div>
+{# <div class="well">
+    {{ form_row(formCategories) }}
+</div> #}
+    {% block content %}
+        {{ form_row(formCategories) }}
+    {% endblock %}
 
 {% endblock %}
