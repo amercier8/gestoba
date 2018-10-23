@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
 class CategoryType extends AbstractType
@@ -19,10 +20,12 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('wizaplaceId', IntegerType::class)
-            ->add('name', TextType::class)
-            ->add('parentId', IntegerType::class)
-            ->add('lowStock', IntegerType::class);
+            ->add('wizaplaceId', IntegerType::class, array('disabled' => true))
+            ->add('name', TextType::class, array('disabled' => true))
+            ->add('parentId', IntegerType::class, array('disabled' => true))
+            ->add('lowStock', IntegerType::class, array('required' => false));
+            // ->add('save', SubmitType::class);
+            
     }/**
      * {@inheritdoc}
      */

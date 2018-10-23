@@ -71,6 +71,7 @@ class StockManagementController extends Controller
     
 
     public function manageCategoriesAction(Request $request) {
+        // var_dump($request);
         $repository = $this
             ->getDoctrine()
             ->getManager()
@@ -79,12 +80,28 @@ class StockManagementController extends Controller
 
         $categories =  $repository->findAll();
 
-        $form = $this->get('form.factory')->create(CollectionType::class, $categories, array(
-            'entry_type' => CategoryType::class,
-            'allow_add' => true
-        ));
+        $form = $this
+            ->get('form.factory')
+            ->create(CollectionType::class, $categories, array(
+                'entry_type' => CategoryType::class,
+            ))
+            ->add('save', SubmitType::class, ['label' => 'Sauvegarder les changements'])
+        ;
 
-        // var_dump($form);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            echo 'post';
+            
+                $em = $this->getDoctrine()->getManager();
+                foreach ($categories as $category) {
+                    $em->persist($category);
+                    $em->flush();
+
+                    $request->getSession()->getFlashBag()->add('notice', 'Modifications bien enregistrées');
+                }}
+        // } else {
+        //     echo 'pas post';
+        // }
         
         return $this->render('OCStockManagementBundle:Category:manageCategories.html.twig', array(
             'formCategories' => $form->createView(),

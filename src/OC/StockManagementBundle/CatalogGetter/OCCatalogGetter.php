@@ -29,7 +29,9 @@ class OCCatalogGetter
         //Ci-dessous : exemple pour passer des paramètres dans l'URL
         // $response = $client->request('GET', '/api/v1/catalog/categories', ['query' => ['filter' => 'test']]);
 
-        $body = json_decode($response->getBody()->getContents(), true);
+        $body = json_decode($response
+            ->getBody()
+            ->getContents(), true);
         // $code = $response->getStatusCode(); // 200
         // $reason = $response->getReasonPhrase();
 
