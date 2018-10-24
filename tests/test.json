@@ -1,0 +1,156 @@
+            "attributes": [
+                {
+                    "id": 81,
+                    "name": "Groupe Test1735",
+                    "values": null,
+                    "value": null,
+                    "valueIds": [],
+                    "children": [
+                        {
+                            "id": 92,
+                            "name": "Couleur 2017",
+                            "values": [
+                                {
+                                    "id": 96,
+                                    "attributeId": 92,
+                                    "name": "bleu",
+                                    "slug": "bleu-2",
+                                    "image": {
+                                        "id": 712
+                                    }
+                                }
+                            ],
+                            "value": [
+                                "bleu"
+                            ],
+                            "valueIds": [
+                                96
+                            ],
+                            "children": [],
+                            "subfeatures": [],
+                            "imageUrls": [],
+                            "type": "CHECKBOX_MULTIPLE"
+                        }
+                    ],
+                    "subfeatures": [
+                        {
+                            "id": 92,
+                            "name": "Couleur 2017",
+                            "values": [
+                                {
+                                    "id": 96,
+                                    "attributeId": 92,
+                                    "name": "bleu",
+                                    "slug": "bleu-2",
+                                    "image": {
+                                        "id": 712
+                                    }
+                                }
+                            ],
+                            "value": [
+                                "bleu"
+                            ],
+                            "valueIds": [
+                                96
+                            ],
+                            "children": [],
+                            "subfeatures": [],
+                            "imageUrls": [],
+                            "type": "CHECKBOX_MULTIPLE"
+                        }
+                    ],
+                    "imageUrls": [],
+                    "type": "GROUP"
+                },
+                {
+                    "id": 83,
+                    "name": "Groupe Test1742",
+                    "values": [],
+                    "value": [],
+                    "valueIds": [],
+                    "children": [],
+                    "subfeatures": [],
+                    "imageUrls": [],
+                    "type": "GROUP"
+                },
+                {
+                    "id": 77,
+                    "name": "GroupTest1512",
+                    "values": [],
+                    "value": [],
+                    "valueIds": [],
+                    "children": [],
+                    "subfeatures": [],
+                    "imageUrls": [],
+                    "type": "GROUP"
+                },
+                {
+                    "id": 59,
+                    "name": "Liste de sélection / Marque/Fabricant",
+                    "values": [
+                        {
+                            "id": 75,
+                            "attributeId": 59,
+                            "name": "Le coq",
+                            "slug": "le-coq",
+                            "image": null
+                        }
+                    ],
+                    "value": [
+                        "Le coq"
+                    ],
+                    "valueIds": [
+                        75
+                    ],
+                    "children": [],
+                    "subfeatures": [],
+                    "imageUrls": [],
+                    "type": "LIST_BRAND"
+                },
+                {
+                    "id": 109,
+                    "name": "testHector",
+                    "values": [
+                        {
+                            "id": null,
+                            "attributeId": 109,
+                            "name": "N",
+                            "slug": "",
+                            "image": null
+                        }
+                    ],
+                    "value": [
+                        "N"
+                    ],
+                    "valueIds": [],
+                    "children": [],
+                    "subfeatures": [],
+                    "imageUrls": [],
+                    "type": "CHECKBOX_UNIQUE"
+                },
+                {
+                    "id": 52,
+                    "name": "Couleur test",
+                    "values": [
+                        {
+                            "id": 64,
+                            "attributeId": 52,
+                            "name": "blue",
+                            "slug": "blue",
+                            "image": {
+                                "id": 708
+                            }
+                        }
+                    ],
+                    "value": [
+                        "blue"
+                    ],
+                    "valueIds": [
+                        64
+                    ],
+                    "children": [],
+                    "subfeatures": [],
+                    "imageUrls": [],
+                    "type": "CHECKBOX_MULTIPLE"
+                }
+            ],
