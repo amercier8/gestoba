@@ -9,10 +9,12 @@
         {% for category in formCategories %}
             {{ form_label(category, "", {"label_attr": {"class": "label_category"}}) }}
             {{ form_widget(category) }}
-            {{ dump(category.children['wizaplaceId'].vars) }}
+            {# {{ dump(category.children['wizaplaceId'].vars) }} #}
         {% endfor %}
         <button type="submit">Soumettre</button>
     {{ form_end(formCategories) }}
+
+    <a href="{{ path('oc_stock_management_deleteLowSwtock') }}">Réinitialiser les niveaux de stock bas</a>
     {# fin du pas touche #}
 
 {% endblock %}

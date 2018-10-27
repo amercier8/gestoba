@@ -1,0 +1,16 @@
+{% extends "OCStockManagementBundle::layout.html.twig" %}
+
+
+{% block title %}{{ parent() }}Page de gestion des Users{% endblock %}
+
+{% block body %}
+    {{ form_start(formUsers) }}
+        {% for user in formUsers %}
+            {{ form_label(user, "", {"label_attr": {"class": "label_user"}}) }}
+            {{ form_widget(user) }}
+        {% endfor %}
+        {# {{ form_row(formUsers) }} #}
+
+    <button type="submit">Soumettre les modifications</button>
+    {{ form_end(formUsers) }}
+{% endblock %}

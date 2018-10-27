@@ -1,0 +1,16 @@
+{% extends "OCStockManagementBundle::layout.html.twig" %}
+
+
+{% block title %}{{ parent() }}Page de gestion des paramètres Utilisateur{% endblock %}
+
+{% block body %}
+    {{ form_start(formUser) }}
+        {{ form_label(formUser, "", {"label_attr": {"class": "label_user"}}) }}
+        {{ form_widget(formUser) }}
+
+        {# {{ form_row(formUser) }} #}
+    <button type="submit">Soumettre les modifications</button>
+
+    {{ form_end(formUser) }}
+
+{% endblock %}

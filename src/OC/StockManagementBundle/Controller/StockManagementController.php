@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Routing\Annotation\Route;
 use GuzzleHttp\Client;
 use OC\StockManagementBundle\Entity\Category;
 use OC\StockManagementBundle\Form\CategoryType;
@@ -90,17 +91,16 @@ class StockManagementController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
-                $em = $this->getDoctrine()->getManager();
-                foreach ($categories as $category) {
-                    $em->persist($category);
-                    $em->flush();
-
-                    $request
-                        ->getSession()
-                        ->getFlashBag()
-                        ->add('notice', 'Modifications bien enregistrées');
-                }}
+            $em = $this->getDoctrine()->getManager();
+            foreach ($categories as $category) {
+                $em->persist($category);
+                $em->flush();
+            }
+        $request
+            ->getSession()
+            ->getFlashBag()
+            ->add('notice', 'Modifications bien enregistrées');
+        }
         
         return $this->render('OCStockManagementBundle:Category:manageCategories.html.twig', array(
             'formCategories' => $form->createView(),
@@ -109,22 +109,29 @@ class StockManagementController extends Controller
 
     }
 
-    //Useless
-    public function changeLowStock() {
-        $category = new Category();
+    public function resetLowStockAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
 
-        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $category);
-
-        $formBuilder
-            ->add('name', TextType::class)
-            ->add('lowStock', IntegerType::class)
-            ->add('save', SubmitType::class)
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('OCStockManagementBundle:Category')
         ;
 
-        $form = $formBuilder->getForm();
+        $categories =  $repository->findAll();
 
-        return $this->render('OCStockManagementBunle:Category:manageCategories.html.twig', array(
-            'form' => $form->createView(),
-        ));
-    }
+        foreach ($categories as $category) {
+            $category->setLowStock(0);
+            $em->persist($category);
+        }
+
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'Niveaux de stock bas réinitialisés'
+        );
+
+        return $this->redirectToRoute('oc_stock_management_manageCategories');
+        }
 }

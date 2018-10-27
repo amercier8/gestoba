@@ -13,4 +13,10 @@ oc_stock_management_manageCategories:
     defaults:
         _controller: OCStockManagementBundle:StockManagement:manageCategories
 
+oc_stock_management_deleteLowSwtock:
+    path:   /resetLowStock
+    defaults:
+        _controller: OCStockManagementBundle:StockManagement:resetLowStock
+
+
 

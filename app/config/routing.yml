@@ -2,6 +2,10 @@ oc_stock_management:
     resource: "@OCStockManagementBundle/Resources/config/routing.yml"
     prefix:   /
 
+OC_user_management:
+    resource: "@OCUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
