@@ -24,7 +24,7 @@ body
     margin-left: 5px;
 }
 
-div[id^="collection_"]
+div[id^="collection_"], tbody
 {
     color: blue;
     display: flex;

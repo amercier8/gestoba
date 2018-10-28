@@ -5,11 +5,19 @@
 
 {% block body %}
     {{ form_start(formUsers) }}
+    {# <table style="width:100%">
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>API Key</th>
+            <th>Enabled</th>
+            <th>Admin</th>
+        </tr>
+    </table> #}
         {% for user in formUsers %}
             {{ form_label(user, "", {"label_attr": {"class": "label_user"}}) }}
             {{ form_widget(user) }}
         {% endfor %}
-        {# {{ form_row(formUsers) }} #}
 
     <button type="submit">Soumettre les modifications</button>
     {{ form_end(formUsers) }}

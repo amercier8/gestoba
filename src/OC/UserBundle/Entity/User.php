@@ -49,4 +49,6 @@ use FOS\UserBundle\Model\User as BaseUser;
 
                 return $this;
             }
+
+
         }

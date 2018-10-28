@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
-class UserType extends AbstractType
+class UsersType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -19,16 +19,15 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, array('disabled' => true))
-            ->add('email', TextType::class, array('disabled' => true))
+            ->add('username', TextType::class)
+            ->add('email', TextType::class)
             ->add('apiKey', TextType::class, array('required' => false))
-            ->add('enabled', CheckboxType::class, array('required' => false, 'disabled' => true))
+            ->add('enabled', CheckboxType::class, array('required' => false))
             ->add('roles', ChoiceType::class, array (
                 'choices' => ['Admin' => 'ROLE_ADMIN'],
                 'multiple' => true,
                 'expanded' => true,
-                'label' => false,
-                'disabled' => true,
+                'label' => false
             ))
         ;
             

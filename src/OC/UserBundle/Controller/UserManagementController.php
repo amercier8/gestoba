@@ -6,19 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use GuzzleHttp\Client;
 use OC\UserBundle\Entity\User;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Entity\UserManager;
 use OC\UserBundle\Form\UserType;
+use OC\UserBundle\Form\UsersType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class UserManagementController extends Controller
 {
+    /**
+    * @Security("has_role('ROLE_ADMIN')")
+    */
     public function getUsersAction(Request $request) {
         $users = $this->get('fos_user.user_manager')->findUsers();
 
@@ -56,22 +57,15 @@ class UserManagementController extends Controller
             ->create(UserType::class, $user)
         ;
 
-        // var_dump($userId);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
                 $em->flush();
 
-            // $request
-            //     ->getSession()
-            //     ->getFlashBag()
-            //     ->add('notice', 'Modifications bien enregistrées');
-
             $this->addFlash(
                 'notice',
-                'Niveaux de stock bas réinitialisés'
+                'Modifications enregistrées'
             );
         }
         return $this->render('OCUserBundle:Security:manageUser.html.twig', array(
