@@ -19,9 +19,9 @@ class OCCatalogGetter
         $client = new \GuzzleHttp\Client([
             // Base URI is used with relative requests
 
-            'base_uri' => 'https://alexandbox.sandbox.wizaplace.com',
+            'base_uri' => 'https://sandbox.wizaplace.com',
             'headers' => [
-                'Authorization' => 'Basic YWxleCt0ZXN0c3VwcG9ydDJAd2l6YXBsYWNlLmNvbTpMMjlBQUtNcFpzejZxNWUwREZPbjRLY0I0YzRTK3JmQ0Yrd3AwSGRl'
+                'Authorization' => 'Basic c3VwcG9ydEB3aXphcGxhY2UuY29tOmJhMjg5ODQyYjFkYjg1NDkwMTUxZDcyOWVkMDI4NTIy'
             ]
         ]);
 

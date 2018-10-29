@@ -38,7 +38,7 @@ class StockManagementController extends Controller
 
         //TESTS
         $categories = $this->container->get('oc_platform.get.catalog')->getCategories();
-        // var_dump($categories);
+        var_dump($categories);
 
         foreach ($categories as $category) {
             $categoriesFiltered[] = array(
@@ -151,8 +151,46 @@ class StockManagementController extends Controller
         }
 
     public function getProductsAction() {
+
+        //On récupère tous les produits, on en fait un array propre
         $products = $this->container->get('oc_platform.get.products')->getProducts();
-        var_dump($products);
+
+        foreach($products as $productContainer) {
+            foreach($productContainer as $productContent) {
+                $productsFiltered[] = array (
+                    'wizaplaceId' => $productContent['id'],
+                    'wizaplaceName' => $productContent['name'],
+                    'stock' => $productContent['declinations'][0]['amount'],
+                    'wizaplaceCategoryName' => $productContent['categoryPath'][0]['name'],
+                    'wizaplaceCategoryId' => $productContent['categoryPath'][0]['id'],
+                );
+            }
+        }
+        // var_dump($productsFiltered);
+        //Fin de la récup de produits
+
+        //Récupération des catégories
+        $em = $this->getDoctrine()->getManager();
+
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('OCStockManagementBundle:Category')
+        ;
+        $categories =  $repository->findAll();
+        foreach($categories as $category) {
+            // $name = $this->getName();
+            // var_dump($name);
+        }
+        //Fin récup des catégories
+
+    }
+
+    public function CompareProductsCategoriesStockAction($productsFiltered) {
+
+    }
+
+
 
         // foreach ($categories as $category) {
         //     $categoriesFiltered[] = array(
@@ -162,5 +200,4 @@ class StockManagementController extends Controller
         //     );
 
         // }
-    }
 }
