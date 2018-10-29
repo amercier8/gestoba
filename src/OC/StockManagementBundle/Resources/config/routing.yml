@@ -6,6 +6,11 @@ oc_stock_management_viewCategory:
     defaults:
         _controller: OCStockManagementBundle:StockManagement:getCategories
 
+oc_stock_management_getProducts:
+    path:   /getProducts
+    defaults:
+        _controller: OCStockManagementBundle:StockManagement:getProducts
+
 oc_stock_management_manageCategories:
     path:     /manageCategory
     defaults:

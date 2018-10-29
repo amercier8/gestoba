@@ -29,16 +29,32 @@ class StockManagementController extends Controller
             ->getRepository('OCStockManagementBundle:Category')
         ;
 
-        $hifi = array('name'=>'hifi', 'wizaplaceId'=>19, 'parentId'=>'null');
-        $bricolage = array('name'=>'Bricolage', 'wizaplaceId'=>15, 'parentId'=>'null');
-        $tournevis = array('name'=>'tournevis', 'wizaplaceId'=>23, 'parentId'=>15);
-        $enceinteNomade = array('name'=>'enceinte nomade', 'wizaplaceId'=>89, 'parentId'=>19);
-        $cableEnceinte = array('name'=>'cable enceinte', 'wizaplaceId'=>678, 'parentId'=>19);
-        $cableEnceinteCuivre = array('name'=>'cable enceinte cuivre', 'wizaplaceId'=>7878, 'parentId'=>678);
+        // $hifi = array('name'=>'hifi', 'wizaplaceId'=>19, 'parentId'=>'null');
+        // $bricolage = array('name'=>'Bricolage', 'wizaplaceId'=>15, 'parentId'=>'null');
+        // $tournevis = array('name'=>'tournevis', 'wizaplaceId'=>23, 'parentId'=>15);
+        // $enceinteNomade = array('name'=>'enceinte nomade', 'wizaplaceId'=>89, 'parentId'=>19);
+        // $cableEnceinte = array('name'=>'cable enceinte', 'wizaplaceId'=>678, 'parentId'=>19);
+        // $cableEnceinteCuivre = array('name'=>'cable enceinte cuivre', 'wizaplaceId'=>7878, 'parentId'=>678);
 
-        $categories = array($bricolage, $tournevis, $enceinteNomade, $cableEnceinte, $hifi, $cableEnceinteCuivre);
+        //TESTS
+        $categories = $this->container->get('oc_platform.get.catalog')->getCategories();
+        // var_dump($categories);
 
-        foreach($categories as $category) {
+        foreach ($categories as $category) {
+            $categoriesFiltered[] = array(
+                'name' => $category['name'],
+                'wizaplaceId' => $category['id'],
+                'parentId' => $category['parentId']
+            );
+
+        }
+
+        //FIN DES TESTS
+
+        // $categories = array($bricolage, $tournevis, $enceinteNomade, $cableEnceinte, $hifi, $cableEnceinteCuivre);
+
+
+        foreach($categoriesFiltered as $category) {
 
             if ($repository->findOneBy(array('wizaplaceId' => $category['wizaplaceId']))) {
                 $categoryToEdit = $repository->findOneBy(
@@ -72,7 +88,6 @@ class StockManagementController extends Controller
     
 
     public function manageCategoriesAction(Request $request) {
-        // var_dump($request);
         $repository = $this
             ->getDoctrine()
             ->getManager()
@@ -134,4 +149,18 @@ class StockManagementController extends Controller
 
         return $this->redirectToRoute('oc_stock_management_manageCategories');
         }
+
+    public function getProductsAction() {
+        $products = $this->container->get('oc_platform.get.products')->getProducts();
+        var_dump($products);
+
+        // foreach ($categories as $category) {
+        //     $categoriesFiltered[] = array(
+        //         'name' => $category['name'],
+        //         'wizaplaceId' => $category['id'],
+        //         'parentId' => $category['parentId']
+        //     );
+
+        // }
+    }
 }

@@ -13,14 +13,14 @@ class OCProductsGetter
 
         $client = new \GuzzleHttp\Client([
             // Base URI is used with relative requests
-
+            //Marchand asas115
             'base_uri' => 'https://alexandbox.sandbox.wizaplace.com',
             'headers' => [
-                'Authorization' => 'Basic YWxleCt0ZXN0c3VwcG9ydDJAd2l6YXBsYWNlLmNvbTpMMjlBQUtNcFpzejZxNWUwREZPbjRLY0I0YzRTK3JmQ0Yrd3AwSGRl'
+                'Authorization' => 'Basic YWxleCt0ZXN0MTgxNkB3aXphcGxhY2UuY29tOlZYK0w4YWxjaVFHOHRmMWVUWkpISUtkQm5wNnM2VU1FNTdNdWN6MDg='
             ]
         ]);
 
-        $response = $client->request('GET', '/api/v1/catalog/export/1');
+        $response = $client->request('GET', '/api/v1/catalog/search/products');
 
         $body = json_decode($response
             ->getBody()

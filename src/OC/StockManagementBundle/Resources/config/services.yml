@@ -5,3 +5,6 @@ services:
 
     oc_platform.get.catalog:
         class: OC\StockManagementBundle\CatalogGetter\OCCatalogGetter
+
+    oc_platform.get.products:
+        class: OC\StockManagementBundle\ProductsGetter\OCProductsGetter
