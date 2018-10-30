@@ -29,22 +29,14 @@ class StockManagementController extends Controller
             ->getRepository('OCStockManagementBundle:Category')
         ;
 
-        // $hifi = array('name'=>'hifi', 'wizaplaceId'=>19, 'parentId'=>'null');
-        // $bricolage = array('name'=>'Bricolage', 'wizaplaceId'=>15, 'parentId'=>'null');
-        // $tournevis = array('name'=>'tournevis', 'wizaplaceId'=>23, 'parentId'=>15);
-        // $enceinteNomade = array('name'=>'enceinte nomade', 'wizaplaceId'=>89, 'parentId'=>19);
-        // $cableEnceinte = array('name'=>'cable enceinte', 'wizaplaceId'=>678, 'parentId'=>19);
-        // $cableEnceinteCuivre = array('name'=>'cable enceinte cuivre', 'wizaplaceId'=>7878, 'parentId'=>678);
-
         //TESTS
         $categories = $this->container->get('oc_platform.get.catalog')->getCategories();
-        var_dump($categories);
 
         foreach ($categories as $category) {
             $categoriesFiltered[] = array(
-                'name' => $category['name'],
-                'wizaplaceId' => $category['id'],
-                'parentId' => $category['parentId']
+                'name' => $category['category'],
+                'wizaplaceId' => $category['category_id'],
+                'parentId' => $category['parent_id']
             );
 
         }
@@ -170,20 +162,33 @@ class StockManagementController extends Controller
         //Fin de la récup de produits
 
         //Récupération des catégories
-        $em = $this->getDoctrine()->getManager();
-
         $repository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('OCStockManagementBundle:Category')
-        ;
+            ->getRepository('OCStockManagementBundle:Category');
+
         $categories =  $repository->findAll();
         foreach($categories as $category) {
-            // $name = $this->getName();
+            $name = $category->getName();
             // var_dump($name);
         }
         //Fin récup des catégories
 
+        //Comparaison
+        for ($i =  0; $i<count($productsFiltered); $i++) {
+            $category = $repository->findBy(array(
+                'wizaplaceId' => $productsFiltered[$i]['wizaplaceCategoryId'],
+            ));
+            if (empty($category)) {
+                echo 'Catégorie de produit inconnue <br />' ;
+            } else if($productsFiltered[$i]['stock'] < $category[0]->getLowStock()) {
+                //Ce sont ces produits qui devront être ajoutés au CSV à télécharger
+                echo 'stock bas <br />';
+            } else {
+                echo 'stock haut <br />';
+            }
+        }
+        //
     }
 
     public function CompareProductsCategoriesStockAction($productsFiltered) {

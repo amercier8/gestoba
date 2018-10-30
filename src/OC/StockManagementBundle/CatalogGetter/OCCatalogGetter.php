@@ -25,7 +25,7 @@ class OCCatalogGetter
             ]
         ]);
 
-        $response = $client->request('GET', '/api/v1/catalog/categories');
+        $response = $client->request('GET', '/api/v1/categories');
         //Ci-dessous : exemple pour passer des paramètres dans l'URL
         // $response = $client->request('GET', '/api/v1/catalog/categories', ['query' => ['filter' => 'test']]);
 
