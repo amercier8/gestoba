@@ -7,9 +7,11 @@
     {# pas touche, fonctionne !!! #}
     {{ form_start(formCategories) }}
         {% for category in formCategories %}
+
             {{ form_label(category, "", {"label_attr": {"class": "label_category"}}) }}
             {{ form_widget(category) }}
-            {# {{ dump(category.children['wizaplaceId'].vars) }} #}
+
+            {{ dump(category.vars) }}
         {% endfor %}
         <button type="submit">Soumettre</button>
     {{ form_end(formCategories) }}

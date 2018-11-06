@@ -86,7 +86,12 @@ class StockManagementController extends Controller
             ->getRepository('OCStockManagementBundle:Category')
         ;
 
-        $categories =  $repository->findAll();
+        $categories =  $repository
+            // ->findAll()
+            ->findBy(array(
+                'name' => 'ameublement',
+            ))
+        ;
 
         $form = $this
             ->get('form.factory')
@@ -142,9 +147,11 @@ class StockManagementController extends Controller
         return $this->redirectToRoute('oc_stock_management_manageCategories');
         }
 
+    //Récupération des produits en Stock bas
     public function getProductsAction() {
 
         //On récupère tous les produits, on en fait un array propre
+        //1 service
         $products = $this->container->get('oc_platform.get.products')->getProducts();
 
         foreach($products as $productContainer) {
@@ -158,10 +165,10 @@ class StockManagementController extends Controller
                 );
             }
         }
-        // var_dump($productsFiltered);
         //Fin de la récup de produits
 
         //Récupération des catégories
+        //2e service
         $repository = $this
             ->getDoctrine()
             ->getManager()
@@ -170,39 +177,37 @@ class StockManagementController extends Controller
         $categories =  $repository->findAll();
         foreach($categories as $category) {
             $name = $category->getName();
-            // var_dump($name);
         }
         //Fin récup des catégories
 
         //Comparaison
+        //Méthode dans le 2e service
+
         for ($i =  0; $i<count($productsFiltered); $i++) {
             $category = $repository->findBy(array(
                 'wizaplaceId' => $productsFiltered[$i]['wizaplaceCategoryId'],
             ));
             if (empty($category)) {
-                echo 'Catégorie de produit inconnue <br />' ;
+                // Ecrire une erreur sur le front pour le user
             } else if($productsFiltered[$i]['stock'] < $category[0]->getLowStock()) {
-                //Ce sont ces produits qui devront être ajoutés au CSV à télécharger
-                echo 'stock bas <br />';
-            } else {
-                echo 'stock haut <br />';
+                $lowStockProducts[] = $productsFiltered[$i];
             }
         }
-        //
+
+
+        //CSV OK --> Sera à appeler via un bouton "Télécharger les produits en Stock Bas"
+        $csvFile = fopen('php://memory', 'w');
+
+        $csvHeader = ['wizaplaceId', 'wizaplaceName', 'stock', 'wizaplaceCategoryName', 'wizaplaceCategoryId'];
+        fputcsv($csvFile, $csvHeader, $delimiter = ";", $enclosure = '"');
+
+        foreach($lowStockProducts as $lowStockProduct) {
+            fputcsv($csvFile, $lowStockProduct, $delimiter = ";", $enclosure = '"'); 
+        }
+        fseek($csvFile, 0);
+        header('Content-Type: application/csv');
+        header('Content-Disposition: attachment; Filename="export_catalog.csv";');
+        fpassthru($csvFile);
+        exit;
     }
-
-    public function CompareProductsCategoriesStockAction($productsFiltered) {
-
-    }
-
-
-
-        // foreach ($categories as $category) {
-        //     $categoriesFiltered[] = array(
-        //         'name' => $category['name'],
-        //         'wizaplaceId' => $category['id'],
-        //         'parentId' => $category['parentId']
-        //     );
-
-        // }
 }
