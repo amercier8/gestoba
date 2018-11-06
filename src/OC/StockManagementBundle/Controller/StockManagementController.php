@@ -89,7 +89,7 @@ class StockManagementController extends Controller
         $categories =  $repository
             // ->findAll()
             ->findBy(array(
-                'name' => 'ameublement',
+                'name' => array('hifi', 'cable enceinte', 'cable enceinte cuivre', 'Bricolage', 'tournevis' ),
             ))
         ;
 
