@@ -20,13 +20,14 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('wizaplaceId', IntegerType::class, array('disabled' => true, 'label_attr' => ['class' => 'bidon']))
+            // ->add('wizaplaceId', IntegerType::class, array('disabled' => true))
             ->add('name', TextType::class, array('disabled' => true))
-            ->add('parentId', IntegerType::class, array('disabled' => true))
-            ->add('lowStock', IntegerType::class, array('required' => false));
-            // ->add('save', SubmitType::class);
-            
-    }/**
+            // ->add('parentId', IntegerType::class, array('disabled' => true))
+            ->add('lowStock', IntegerType::class, array('required' => false))  
+        ;
+    }
+    
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

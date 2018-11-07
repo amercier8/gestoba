@@ -6,13 +6,23 @@
 {% block body %}
     {# pas touche, fonctionne !!! #}
     {{ form_start(formCategories) }}
-        {% for category in formCategories %}
-
-            {{ form_label(category, "", {"label_attr": {"class": "label_category"}}) }}
-            {{ form_widget(category) }}
-
-            {{ dump(category) }}
-        {% endfor %}
+        <ul>
+            {% for category in formCategories %}
+                {% if category.vars.id != "collection__token" %}
+                    {% if category.vars.data.parentId == null %}
+                        {{ form_label(category, "", {"label_attr": {"class": "label_category"}}) }}
+                        <li>
+                            {{ form_widget(category) }}
+                        </li>
+                        {% set currentParentCategoryId = category.vars.data.id %}
+                        {# Essai class custom #}
+                        {# {% set depth = 1 %} #}
+                        {# Fin essai class custom #}
+                        {% include 'manageSubCategories.html.twig'%}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </ul>
         <button type="submit">Soumettre</button>
     {{ form_end(formCategories) }}
 
