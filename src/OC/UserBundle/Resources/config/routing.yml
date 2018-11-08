@@ -4,6 +4,6 @@ oc_users_management:
         _controller: OCUserBundle:UserManagement:getUsers
 
 oc_user_management:
-    path:   /
+    path:   /manageUser
     defaults:
         _controller: OCUserBundle:UserManagement:getUser

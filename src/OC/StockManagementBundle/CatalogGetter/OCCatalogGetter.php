@@ -14,14 +14,13 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class OCCatalogGetter
 {
     //attention, apres jsonddecode, modifier le :string
-    public function getCategories() {
-    // public function getCategories():string {
+    public function getCategories($userCredentials) {
         $client = new \GuzzleHttp\Client([
             // Base URI is used with relative requests
 
             'base_uri' => 'https://sandbox.wizaplace.com',
             'headers' => [
-                'Authorization' => 'Basic c3VwcG9ydEB3aXphcGxhY2UuY29tOmJhMjg5ODQyYjFkYjg1NDkwMTUxZDcyOWVkMDI4NTIy'
+                'Authorization' => 'Basic '.$userCredentials
             ]
         ]);
 

@@ -8,3 +8,5 @@ services:
 
     oc_platform.get.products:
         class: OC\StockManagementBundle\ProductsGetter\OCProductsGetter
+                # Ajout
+        # arguments: [%userPassword%, %userMail%]

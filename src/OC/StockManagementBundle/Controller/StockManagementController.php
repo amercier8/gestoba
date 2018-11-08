@@ -30,7 +30,14 @@ class StockManagementController extends Controller
         ;
 
         //TESTS
-        $categories = $this->container->get('oc_platform.get.catalog')->getCategories();
+        $userMail = $this->getUser()->getEmail();
+
+        $userApiKey = $this->getUser()->getApiKey();
+        // var_dump($userApiKey);
+        $userCredentials = base64_encode($userMail.':'.$userApiKey);
+        var_dump($userCredentials);
+
+        $categories = $this->container->get('oc_platform.get.catalog')->getCategories($userCredentials);
 
         foreach ($categories as $category) {
             $categoriesFiltered[] = array(
@@ -87,10 +94,10 @@ class StockManagementController extends Controller
         ;
 
         $categories =  $repository
-            // ->findAll()
-            ->findBy(array(
-                'name' => array('hifi', 'cable enceinte', 'cable enceinte cuivre', 'Bricolage', 'tournevis' ),
-            ))
+            ->findAll()
+            // ->findBy(array(
+            //     'name' => array('hifi', 'cable enceinte', 'cable enceinte cuivre', 'Bricolage', 'tournevis' ),
+            // ))
         ;
 
         $form = $this
@@ -152,7 +159,15 @@ class StockManagementController extends Controller
 
         //On récupère tous les produits, on en fait un array propre
         //1 service
+        $userMail = $this->getUser()->getEmail();
+        $userPassword = $this->getUser()->getPassword();
+        $userCredentials = $userMail.$userPassword;
+        // var_dump($userCredentials);
+        
+        // $products = $this->container->get('oc_platform.get.products')->getProducts();
+        //Version modifiée
         $products = $this->container->get('oc_platform.get.products')->getProducts();
+        //Fin version modifiée
 
         foreach($products as $productContainer) {
             foreach($productContainer as $productContent) {
