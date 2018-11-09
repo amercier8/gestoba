@@ -28,14 +28,44 @@ div[id^="collection_"], tbody
 {
     color: blue;
     display: flex;
+    flex-wrap: wrap;
     width: 120%;
     justify-content: space-between;
+    /* position: absolute; */
+    border: 1px solid red;
+    /* display: table; */
 }
+
+table tbody tr:nth-child(1)
+{
+    border: 1px solid pink;
+    /* display: table-cell; */
+}
+
+table tbody tr:nth-child(2)
+{
+    border: 1px solid green;
+    position: absolute;
+    left: 500px;
+    /* margin-right: 40px; */
+    /* display: table-cell; */
+}
+tbody tr:nth-child(2)
+{
+    margin-right: 40px;
+}
+
 ul
 {
     list-style: none;
     /* padding-left: 0px; */
 }
+
+tbody
+{
+    width: 700px;
+}
+
 
 /* table > tbody:nth-child(1) > tr:nth-child(1) {
     padding-left: 10px;

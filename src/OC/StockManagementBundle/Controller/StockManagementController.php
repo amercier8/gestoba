@@ -16,10 +16,14 @@ use GuzzleHttp\Client;
 use OC\StockManagementBundle\Entity\Category;
 use OC\StockManagementBundle\Form\CategoryType;
 use OC\StockManagementBundle\Form\CategoriesType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 class StockManagementController extends Controller
 {
+    /**
+    * @Security("has_role('ROLE_ADMIN')")
+    */
     public function getCategoriesAction() {
         $em = $this->getDoctrine()->getManager();
 
@@ -31,11 +35,8 @@ class StockManagementController extends Controller
 
         //TESTS
         $userMail = $this->getUser()->getEmail();
-
         $userApiKey = $this->getUser()->getApiKey();
-        // var_dump($userApiKey);
         $userCredentials = base64_encode($userMail.':'.$userApiKey);
-        var_dump($userCredentials);
 
         $categories = $this->container->get('oc_platform.get.catalog')->getCategories($userCredentials);
 
@@ -43,7 +44,8 @@ class StockManagementController extends Controller
             $categoriesFiltered[] = array(
                 'name' => $category['category'],
                 'wizaplaceId' => $category['category_id'],
-                'parentId' => $category['parent_id']
+                'parentId' => $category['parent_id'],
+                'status' => $category['status'],
             );
 
         }
@@ -51,29 +53,29 @@ class StockManagementController extends Controller
         //FIN DES TESTS
 
         // $categories = array($bricolage, $tournevis, $enceinteNomade, $cableEnceinte, $hifi, $cableEnceinteCuivre);
-
-
         foreach($categoriesFiltered as $category) {
+            var_dump($category);
+            if($category['status'] === "A") {
+                if ($repository->findOneBy(array('wizaplaceId' => $category['wizaplaceId']))) {
+                    $categoryToEdit = $repository->findOneBy(
+                        array('wizaplaceId' => $category['wizaplaceId'])
+                    );
+                } else {
+                    $categoryToEdit = new Category();
+                }
 
-            if ($repository->findOneBy(array('wizaplaceId' => $category['wizaplaceId']))) {
-                $categoryToEdit = $repository->findOneBy(
-                    array('wizaplaceId' => $category['wizaplaceId'])
+                $parent = $repository->findOneBy(
+                    array('wizaplaceId' => $category['parentId'])
                 );
-            } else {
-                $categoryToEdit = new Category();
+
+                $categoryToEdit
+                    ->setName($category['name'])
+                    ->setParent($parent)
+                    ->setWizaplaceId($category['wizaplaceId'])
+                ;
+
+                $em->persist($categoryToEdit);
             }
-
-            $parent = $repository->findOneBy(
-                array('wizaplaceId' => $category['parentId'])
-            );
-
-            $categoryToEdit
-                ->setName($category['name'])
-                ->setParent($parent)
-                ->setWizaplaceId($category['wizaplaceId'])
-            ;
-
-            $em->persist($categoryToEdit);
         }
 
         $em->flush();
@@ -85,7 +87,9 @@ class StockManagementController extends Controller
         ));
     }
     
-
+    /**
+    * @Security("has_role('ROLE_VENDOR')")
+    */
     public function manageCategoriesAction(Request $request) {
         $repository = $this
             ->getDoctrine()
@@ -95,9 +99,6 @@ class StockManagementController extends Controller
 
         $categories =  $repository
             ->findAll()
-            // ->findBy(array(
-            //     'name' => array('hifi', 'cable enceinte', 'cable enceinte cuivre', 'Bricolage', 'tournevis' ),
-            // ))
         ;
 
         $form = $this
@@ -203,7 +204,7 @@ class StockManagementController extends Controller
                 'wizaplaceId' => $productsFiltered[$i]['wizaplaceCategoryId'],
             ));
             if (empty($category)) {
-                // Ecrire une erreur sur le front pour le user
+                $lowStockProducts[] = [];
             } else if($productsFiltered[$i]['stock'] < $category[0]->getLowStock()) {
                 $lowStockProducts[] = $productsFiltered[$i];
             }

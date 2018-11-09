@@ -24,7 +24,10 @@ class UsersType extends AbstractType
             ->add('apiKey', TextType::class, array('required' => false))
             ->add('enabled', CheckboxType::class, array('required' => false))
             ->add('roles', ChoiceType::class, array (
-                'choices' => ['Admin' => 'ROLE_ADMIN'],
+                'choices' => [
+                    'Admin' => 'ROLE_ADMIN',
+                    'Vendor' => 'ROLE_VENDOR'
+                ],
                 'multiple' => true,
                 'expanded' => true,
                 'label' => false

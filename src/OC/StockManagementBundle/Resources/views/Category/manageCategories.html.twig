@@ -7,11 +7,12 @@
     {# pas touche, fonctionne !!! #}
     {{ form_start(formCategories) }}
         <ul>
+            <h3>Stock Limite</h3>
             {% for category in formCategories %}
                 {% if category.vars.id != "collection__token" %}
                     {% if category.vars.data.parentId == null %}
                         {{ form_label(category, "", {"label_attr": {"class": "label_category"}}) }}
-                        <li>
+                        <li class="category">
                             {{ form_widget(category) }}
                         </li>
                         {% set currentParentCategoryId = category.vars.data.id %}

@@ -26,7 +26,7 @@ class UserManagementController extends Controller
         $form = $this
             ->get('form.factory')
             ->create(CollectionType::class, $users, array(
-                'entry_type' => UserType::class,
+                'entry_type' => UsersType::class,
                 'attr' => array('class' => 'collection'),
             ))
         ;
@@ -70,10 +70,6 @@ class UserManagementController extends Controller
         }
         return $this->render('OCUserBundle:Security:manageUser.html.twig', array(
             'formUser' => $form->createView(),
-            //Ajout
-            // 'userMail' => $this->getUser()->getMail(),
-            // 'userPassword' => $this->getUser()->getPassword(),
-            //Fin ajout
         ));
     }
 

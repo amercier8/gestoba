@@ -21,9 +21,15 @@ class CategoryType extends AbstractType
     {
         $builder
             // ->add('wizaplaceId', IntegerType::class, array('disabled' => true))
-            ->add('name', TextType::class, array('disabled' => true))
+            ->add('name', TextType::class, array(
+                'disabled' => true,
+                'label' => false,
+                ))
             // ->add('parentId', IntegerType::class, array('disabled' => true))
-            ->add('lowStock', IntegerType::class, array('required' => false))  
+            ->add('lowStock', IntegerType::class, array(
+                'required' => false,
+                'label' => 'Stock Limite',
+                ))  
         ;
     }
     
