@@ -10,3 +10,9 @@ services:
         class: OC\StockManagementBundle\ProductsGetter\OCProductsGetter
                 # Ajout
         # arguments: [%userPassword%, %userMail%]
+
+    oc_platform.get.lowStockProductsCSV:
+        class: OC\StockManagementBundle\LowStockProductsCSVGetter\OCLowStockProductsCSVGetter
+
+    oc_platform.compare.productsVsCategoriesStock:
+        class: OC\StockManagementBundle\ProductsVsCategoriesStockComparator\OCProductsVsCategoriesStockComparator
