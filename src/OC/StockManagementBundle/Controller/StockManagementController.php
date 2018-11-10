@@ -18,7 +18,6 @@ use OC\StockManagementBundle\Form\CategoryType;
 use OC\StockManagementBundle\Form\CategoriesType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-
 class StockManagementController extends Controller
 {
     /**
@@ -36,49 +35,17 @@ class StockManagementController extends Controller
         $userMail = $this->getUser()->getEmail();
         $userApiKey = $this->getUser()->getApiKey();
         $userCredentials = base64_encode($userMail.':'.$userApiKey);
+        //Getting the categories from the external API
         $categories = $this->container->get('oc_platform.get.catalog')->getCategories($userCredentials);
 
-        foreach ($categories as $category) {
-            $categoriesFiltered[] = array(
-                'name' => $category['category'],
-                'wizaplaceId' => $category['category_id'],
-                'parentId' => $category['parent_id'],
-                'status' => $category['status'],
-            );
-        }
-
-        foreach($categoriesFiltered as $category) {
-            if($category['status'] === "A") {
-                if ($repository->findOneBy(array('wizaplaceId' => $category['wizaplaceId']))) {
-                    $categoryToEdit = $repository->findOneBy(
-                        array('wizaplaceId' => $category['wizaplaceId'])
-                    );
-                } else {
-                    $categoryToEdit = new Category();
-                }
-
-                $parent = $repository->findOneBy(
-                    array('wizaplaceId' => $category['parentId'])
-                );
-
-                $categoryToEdit
-                    ->setName($category['name'])
-                    ->setParent($parent)
-                    ->setWizaplaceId($category['wizaplaceId'])
-                ;
-
-                $em->persist($categoryToEdit);
-            }
-        }
-
-        $em->flush();
+        //Getting what is necessary from the return from the API
+        //For each category, update or edit the doctrine objects
+        $this->container->get('oc_platform.update.categories')->updateCategories($categories, $repository, $em);
 
         $listCategories = $repository->findAll();
 
-        return $this->render('OCStockManagementBundle:Category:manageCategories.html.twig', array(
-            'listCategories' => $listCategories,
-        ));
-        //Ci-dessous : Le bouton sera placé dans la page de gestion DES utilisateurs, il faudra faire un redirect vers cette page
+        //Return n'a pas lieu d'être
+        return $this->redirectToRoute('oc_users_management');
     }
     
     /**
@@ -152,54 +119,18 @@ class StockManagementController extends Controller
     //Récupération des produits en Stock bas
     public function getProductsAction() {
 
-        //On récupère tous les produits, on en fait un array propre
-        //1 service
         $userMail = $this->getUser()->getEmail();
         $userPassword = $this->getUser()->getPassword();
         $userCredentials = $userMail.$userPassword;
-        // var_dump($userCredentials);
-        
-        // $products = $this->container->get('oc_platform.get.products')->getProducts();
-        //Version modifiée
-        $products = $this->container->get('oc_platform.get.products')->getProducts();
-        //Fin version modifiée
 
-        foreach($products as $productContainer) {
-            foreach($productContainer as $productContent) {
-                $productsFiltered[] = array (
-                    'wizaplaceId' => $productContent['id'],
-                    'wizaplaceName' => $productContent['name'],
-                    'stock' => $productContent['declinations'][0]['amount'],
-                    'wizaplaceCategoryName' => $productContent['categoryPath'][0]['name'],
-                    'wizaplaceCategoryId' => $productContent['categoryPath'][0]['id'],
-                );
-            }
-        }
+        $products = $this->container->get('oc_platform.get.products')->getProducts();
 
         $repository = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('OCStockManagementBundle:Category');
 
-        $categories =  $repository->findAll();
-        foreach($categories as $category) {
-            $name = $category->getName();
-        }
-        //Fin récup des catégories
-
-        //Comparaison
-        // for ($i =  0; $i<count($productsFiltered); $i++) {
-        //     $category = $repository->findBy(array(
-        //         'wizaplaceId' => $productsFiltered[$i]['wizaplaceCategoryId'],
-        //     ));
-        //     if (empty($category)) {
-        //         $lowStockProducts[] = [];
-        //     } else if($productsFiltered[$i]['stock'] < $category[0]->getLowStock()) {
-        //         $lowStockProducts[] = $productsFiltered[$i];
-        //     }
-        // }
-        $this->container->get('oc_platform.compare.productsVsCategoriesStock')->compareProductsVsCategoriesStock($productsFiltered);
-
+        $lowStockProducts = $this->container->get('oc_platform.compare.productsVsCategoriesStock')->compareProductsVsCategoriesStock($products, $repository);
 
         //Récupération du CSV
         $this->container->get('oc_platform.get.lowStockProductsCSV')->getLowStockProductsCSV($lowStockProducts);

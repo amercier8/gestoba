@@ -15,7 +15,7 @@ class OCProductsGetter
 
 
         // $userCredentials = base64_encode($userCredentials);
-        $userCredentials = base64_encode("aa");
+        // $userCredentials = base64_encode("aa");
         $client = new \GuzzleHttp\Client([
             // Base URI is used with relative requests
             //Marchand asas115

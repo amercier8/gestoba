@@ -16,3 +16,6 @@ services:
 
     oc_platform.compare.productsVsCategoriesStock:
         class: OC\StockManagementBundle\ProductsVsCategoriesStockComparator\OCProductsVsCategoriesStockComparator
+
+    oc_platform.update.categories:
+        class: OC\StockManagementBundle\CategoriesUpdater\OCCategoriesUpdater

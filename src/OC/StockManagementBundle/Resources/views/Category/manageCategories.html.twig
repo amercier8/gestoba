@@ -4,6 +4,9 @@
 {% block title %}{{ parent() }}Page de gestion des niveaux de Stock{% endblock %}
 
 {% block body %}
+
+
+
     {# pas touche, fonctionne !!! #}
     {{ form_start(formCategories) }}
         <ul>
@@ -24,7 +27,7 @@
                 {% endif %}
             {% endfor %}
         </ul>
-        <button type="submit">Soumettre</button>
+        <button type="submit">Enreigstrer les modifications</button>
     {{ form_end(formCategories) }}
 
     <a href="{{ path('oc_stock_management_deleteLowSwtock') }}">Réinitialiser les niveaux de stock bas</a>

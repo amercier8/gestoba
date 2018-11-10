@@ -9,14 +9,33 @@
         {% endblock %}
     </head>
     <body>
+        <header>
+            <h1>Gestion de Stock Bas</h1>
+            <div id="HeaderLinks">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                Connecté en tant que {{ app.user.username }}
-                -
-                <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                    Connecté en tant que {{ app.user.username }}
+                    <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
                 {% else %}
                     <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-            {% endif %}
+                {% endif %}
+            </div>
+        </header>
 
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <div id="tabs">
+            <div id="general">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <h2><a href="{{ path('oc_users_management') }}">Général</a></h2>
+                {% elseif is_granted('ROLE_VENDOR')%}
+                    <h2><a href="{{ path('oc_user_management') }}">Général</a></h2>
+                {% endif %}
+            </div>
+            <div id="categories_params">
+                <h2><a href="{{ path('oc_stock_management_manageCategories') }}">Paramétrer les catégories</a></h2>
+            </div>
+        </div>
+    {% endif %}
+    
         {% block body %}
 
         {% endblock %}

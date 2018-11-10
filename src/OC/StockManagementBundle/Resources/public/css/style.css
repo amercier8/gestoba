@@ -1,7 +1,29 @@
+@font-face
+{
+    font-family: 'robotoregular';
+    src: url('fonts/Roboto-Regular-webfont.eot');
+    src: url('fonts/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('fonts/Roboto-Regular-webfont.woff2') format('woff2'),
+        url('fonts/Roboto-Regular-webfont.woff') format('woff'),
+        url('fonts/Roboto-Regular-webfont.ttf') format('truetype'),
+        url('fonts/Roboto-Regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face
+{
+    font-family: 'patrickhand-regular';
+    src: url('fonts/PatrickHand-Regular.ttf');
+    src: url('fonts/PatrickHand-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body
 {
-    color: blue;
-    background-color: #e1e0dd;
+    color: #2f292b;
+    background-color: #dfe0e2;
 	font-family: 'robotoregular';
     display: flex;
     flex-direction: column;
@@ -24,52 +46,189 @@ body
     margin-left: 5px;
 }
 
+a.action_button, form button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+    max-width: 300px;
+    text-align: center;
+    font-family: 'robotoregular';
+    font-size: 16px;
+}
+
+
+
 div[id^="collection_"], tbody
 {
-    color: blue;
     display: flex;
     flex-wrap: wrap;
-    width: 120%;
+    /* width: 120%; */
     justify-content: space-between;
     /* position: absolute; */
-    border: 1px solid red;
+    /* border: 1px solid red; */
     /* display: table; */
+    font-size: 1em;
 }
 
-table tbody tr:nth-child(1)
+li.category table tbody tr:nth-child(1)
 {
-    border: 1px solid pink;
+    border: 0px solid #a5a6a9;
     /* display: table-cell; */
 }
 
-table tbody tr:nth-child(2)
+li.category table tbody tr:nth-child(2)
 {
-    border: 1px solid green;
+    /* border: 1px solid green; */
     position: absolute;
     left: 500px;
-    /* margin-right: 40px; */
-    /* display: table-cell; */
-}
-tbody tr:nth-child(2)
-{
     margin-right: 40px;
 }
 
 ul
 {
     list-style: none;
-    /* padding-left: 0px; */
 }
 
-tbody
+h1
 {
-    width: 700px;
+    font-size: 40px;
+}
+
+h1, h3
+{
+    color: #f45844;
+    font-family: 'patrickhand-regular';
+}
+
+h3
+{
+    font-size: 26px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#HeaderLinks a
+{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    text-decoration: none;
+    line-height: 1.5;
+    padding-bottom: 1px;
+    text-decoration: underline;
+}
+
+#HeaderLinks > a:hover
+{
+    font-style: italic;
+}
+
+form, .category_update, .csv_getter
+{
+    display: flex;
+    flex-direction: column;
+    background-color: #a5a6a9;
+    padding: 2%;
+    margin-bottom: 10px;
+    justify-content: center;
+    box-shadow: 0 0.1875rem 0.3125rem 0.0625rem rgba(0, 0, 0, 0.501);
 }
 
 
-/* table > tbody:nth-child(1) > tr:nth-child(1) {
-    padding-left: 10px;
-    float: left;
+form.collection table
+{
+    border-bottom: 1px solid #f45844;
 }
 
-table > tbody:nth-child(1) > tr:nth-child(1) */
+
+form.collection ul li.category:hover
+{
+    background-color: #dfe0e2;
+    border: 1px solid #dfe0e2;
+}
+
+li.category table
+{
+    border-bottom: none;
+}
+
+
+form button
+{
+    margin-top: 16px;
+    cursor:pointer;
+}
+    
+tbody tr
+{
+    margin-right: 20px;
+}
+
+#tabs
+{
+    display: flex;
+    flex-direction: row;
+    height: 120%;
+    margin-bottom: -20px;
+    /* width: 130%; */
+}
+
+div#tabs div h2 a
+{
+    text-decoration: none;
+    background-color: #a5a6a9;
+    color: #2f292b;
+    padding: 10px;
+    font-size: 21px;
+    border-radius: 4px 4px 0px 0px;
+    vertical-align: center;
+    border: 1px solid #dfe0e2;
+}
+
+div#tabs div h2 a:hover
+{
+    background-color: #f45844;
+    transition: color 0.5s linear;
+}
+
+.collection > ul:nth-child(1)
+{
+    margin-top: 0px;
+}
+
+.collection
+{
+    padding-top: 0px;
+}
+
+header+form
+{
+    display: flex;
+    flex-direction: column;
+    max-width: 300px; 
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+#remember_me
+{
+    width: 20px;
+}
+
+html body form label
+{
+    width: 150px;
+}

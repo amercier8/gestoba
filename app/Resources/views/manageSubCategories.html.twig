@@ -3,7 +3,7 @@
         {% if category.vars.id != "collection__token" %}
             {% if category.vars.data.parentId == currentParentCategoryId %}
                 {{ form_label(category, "", {"label_attr": {"class": "label_category"}}) }}
-                <li>
+                <li class="category">
                     {{ form_widget(category) }}
                 </li>
                 {% include "manageSubCategories.html.twig" with {'currentParentCategoryId': category.vars.data.id} %}

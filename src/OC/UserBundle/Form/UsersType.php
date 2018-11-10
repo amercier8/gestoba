@@ -19,14 +19,24 @@ class UsersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class)
-            ->add('email', TextType::class)
-            ->add('apiKey', TextType::class, array('required' => false))
-            ->add('enabled', CheckboxType::class, array('required' => false))
+            ->add('username', TextType::class, array(
+                'label' => 'Nom',
+            ))
+            ->add('email', TextType::class, array (
+                'label' => 'Mail',
+            ))
+            ->add('apiKey', TextType::class, array(
+                'required' => false,
+                'label' => 'Clé API',
+            ))
+            ->add('enabled', CheckboxType::class, array(
+                'required' => false,
+                'label' => 'Activé',
+                ))
             ->add('roles', ChoiceType::class, array (
                 'choices' => [
                     'Admin' => 'ROLE_ADMIN',
-                    'Vendor' => 'ROLE_VENDOR'
+                    'Vendeur' => 'ROLE_VENDOR'
                 ],
                 'multiple' => true,
                 'expanded' => true,

@@ -1,24 +1,32 @@
-{% extends "OCStockManagementBundle::layout.html.twig" %}
+{% extends "OCUserBundle::layout.html.twig" %}
 
 
 {% block title %}{{ parent() }}Page de gestion des Users{% endblock %}
 
 {% block body %}
-    {{ form_start(formUsers) }}
-    {# <table style="width:100%">
-        <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>API Key</th>
-            <th>Enabled</th>
-            <th>Admin</th>
-        </tr>
-    </table> #}
-        {% for user in formUsers %}
-            {{ form_label(user, "", {"label_attr": {"class": "label_user"}}) }}
-            {{ form_widget(user) }}
-        {% endfor %}
 
-    <button type="submit">Soumettre les modifications</button>
-    {{ form_end(formUsers) }}
+    <div class="category_update">
+        <h3>Mettre à jour les catégories</h3>
+        <p>Cette commande vous permet de récupérer les catégories chez Wizaplace, pour mettre à jour les catégories présentées dans l'onglet "Gérer les catégories"</p>
+        <a href="{{ path('oc_stock_management_viewCategory') }}" class="action_button">Mettre à jour les catégories Wizaplace</a>
+    </div>
+
+    <div class="csv_getter">
+        <h3>Récupérer les produits en stock bas</h3>
+        <p>Cette commande vous permet de télécharger un CSV, contenant les produits dont le stock est inférieur au niveau de stock minimum paramétré dans l'onglet "Paramétrer les catégories"</p>
+        <a href="{{ path('oc_stock_management_getProducts') }}" class="action_button">Récupérer le CSV</a>
+    </div>
+
+    <div class="users_management">       
+        {{ form_start(formUsers) }}
+            <h3>Gérer les utilisateurs</h3>
+            {% for user in formUsers %}
+                {{ form_label(user, "", {"label_attr": {"class": "label_user"}}) }}
+                {{ form_widget(user) }}
+            {% endfor %}
+
+        <button type="submit">Soumettre les modifications</button>
+        {{ form_end(formUsers) }}
+    </div>
+
 {% endblock %}

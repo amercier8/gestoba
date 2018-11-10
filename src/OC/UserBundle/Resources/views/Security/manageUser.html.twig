@@ -1,10 +1,19 @@
-{% extends "OCStockManagementBundle::layout.html.twig" %}
+{% extends "OCUserBundle::layout.html.twig" %}
 
 
 {% block title %}{{ parent() }}Page de gestion des paramètres Utilisateur{% endblock %}
 
 {% block body %}
+
+    <div class="csv_getter">
+        <h3>Récupérer les produits en stock bas</h3>
+        <p>Cette commande vous permet de télécharger un CSV, contenant les produits dont le stock est inférieur au niveau de stock minimum paramétré dans l'onglet "Paramétrer les catégories"</p>
+        <a href="{{ path('oc_stock_management_getProducts') }}" class="action_button">Récupérer le CSV</a>
+    </div>
+
+<div class="users_management">
     {{ form_start(formUser) }}
+        <h3>Gérer les paramètres d'utilisateur</h3>
         {{ form_label(formUser, "", {"label_attr": {"class": "label_user"}}) }}
         {{ form_widget(formUser) }}
 
@@ -12,5 +21,6 @@
     <button type="submit">Soumettre les modifications</button>
 
     {{ form_end(formUser) }}
+</div>
 
 {% endblock %}
