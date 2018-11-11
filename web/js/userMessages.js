@@ -3,14 +3,8 @@ class userMessages {
         this.$flashNotice = document.getElementById("flash-notice");
         this.$cross = document.getElementById("cross");
 
-        this.$crossPopUp = document.getElementById("crossPopUp");
-        this.$popUp = document.getElementById("popUp");
-        
-        this.$reinitButton = document.getElementById("supprimer");
-
+        this.displayPopUp();
         this.manageFlash();
-        // this.managePopUp();
-        // this.displayPopUp();
     }
 
     manageFlash() {
@@ -19,15 +13,13 @@ class userMessages {
         })
     }
 
-    // managePopUp() {
-    //     this.$crossPopUp.addEventListener("click", () => {
-    //         this.$popUp.style.display = "none";
-    //     })
-    // }
-
-    // displayPopUp() {
-    //     this.$reinitButton.addEventListener("click", () => {
-    //         this.$popUp.style.display = "block";
-    //     })
-    // }
+    displayPopUp() {
+        var elems = document.getElementsByClassName('supprimer');
+        var confirmIt = function (e) {
+            if (!confirm('Etes-vous sûr de vouloir continuer?')) e.preventDefault();
+        };
+        for (var i = 0, l = elems.length; i < l; i++) {
+            elems[i].addEventListener('click', confirmIt, false);
+        }
+    }
 }

@@ -61,7 +61,6 @@ class StockManagementController extends Controller
         ->getFlashBag()
         ->add('notice', 'Catégories mises à jour');
 
-        //Return n'a pas lieu d'être
         return $this->redirectToRoute('oc_users_management');
     }
     
@@ -135,10 +134,6 @@ class StockManagementController extends Controller
 
     //Récupération des produits en Stock bas
     public function getProductsAction() {
-
-        $userMail = $this->getUser()->getEmail();
-        $userPassword = $this->getUser()->getPassword();
-        $userCredentials = $userMail.$userPassword;
 
         $products = $this->container->get('oc_platform.get.products')->getProducts();
 

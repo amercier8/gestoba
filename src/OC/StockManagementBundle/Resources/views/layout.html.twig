@@ -17,8 +17,6 @@
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     Connecté en tant que {{ app.user.username }}
                     <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-                {# {% else %}
-                    <a href="{{ path('fos_user_security_login') }}">Connexion</a> #}
                     {% else %}
                     <a href="{{ path('fos_user_registration_register') }}">Créer un compte</a>
                     <a href="{{ path('fos_user_security_login') }}">Connexion</a>
@@ -43,11 +41,6 @@
         </div>
     {% endif %}
 
-    {# {% if not is_granted('ROLE_VENDOR') %}
-    <p>Votre compte doit être modéré par l'Administrateur avant que vous puissez utiliser le Gestionnaire de Stocks Bas</p>
-    {% endif %} #}
-
-
     {% for message in app.flashes('notice') %}
         <div id="flash-notice">
             <p>
@@ -62,8 +55,6 @@
         {% block body %}
 
         {% endblock %}
-        {# <script src="../bundles/ocstockmanagement/js/userMessages.js"></script>
-        <script src="../bundles/ocstockmanagement/js/main.js"></script> #}
 
         <script src="../../js/userMessages.js"></script>
         <script src="../../js/main.js"></script>

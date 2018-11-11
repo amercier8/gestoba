@@ -21,13 +21,13 @@ class Category
 
     /**
      * One Category has Many Categories.
-     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent", cascade={"persist", "remove"})
      */
     private $children;
 
     /**
      * Many Categories have One Category.
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="parentId", referencedColumnName="id")
      */
     private $parent;

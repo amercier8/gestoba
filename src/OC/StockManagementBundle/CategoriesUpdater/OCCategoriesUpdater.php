@@ -22,7 +22,7 @@ class OCCategoriesUpdater
                 }
         
                 //For each category, update or edit the doctrine objects
-                // $categoriesFiltered
+                $categoriesActive = array();
                 foreach($categoriesFiltered as $category) {
                     if($category['status'] === "A") {
                         if ($repository->findOneBy(array('wizaplaceId' => $category['wizaplaceId']))) {
@@ -42,50 +42,25 @@ class OCCategoriesUpdater
                             ->setParent($parent)
                             ->setWizaplaceId($category['wizaplaceId'])
                         ;
-        
+
+                        $categoriesActive[] = $category['wizaplaceId'];
+
                         $em->persist($categoryToEdit);
                     }
                 }
+                
+                //Managing deletion
+                $dbCategories = $repository->findAll();
 
-                //TESTS SUPPRESSION DE L'INUTILE
-                // foreach($categoriesFiltered as $categoryFiltered) {
-                //     $dbCategories = $repository->findAll();
-                //     foreach($dbCategories as $dbCategory) {
-                //         if($categoryFiltered['wizaplaceId'] == $dbCategory->getWizaplaceId()) {
-                //             var_dump('trouvé');
-                //             var_dump($categoryFiltered['wizaplaceId']);
-                //         } else {
-                //             var_dump('pas trouvé');
-                //             var_dump($categoryFiltered['wizaplaceId']);
-                //         }
-                //     }
-                // }
-
-                // foreach($categoriesFiltered as $categoryFiltered) {
-                //     $categoriesArray = $categoryFiltered['wizaplaceId'];
-                // }
-                // var_dump($categoriesArray);
-
-                // $dbCategories = $repository->findAll();
-                // foreach($dbCategories as $dbCategory) {
-                //     foreach($categoriesFiltered as $categoryFiltered) {
-                //         if($categoryFiltered['wizaplaceId'] != $dbCategory->getWizaplaceId()) {
-                //             $categoryToSuppress = $repository->findOneBy(
-                //                 array(
-                //                     'wizaplaceId' => $dbCategory->getWizaplaceId(),
-                //                 ));
-                //                 $em->remove($categoryToSuppress);
-                            
-                //             // var_dump('pas trouvé');
-                //             // var_dump($categoryFiltered['wizaplaceId']); 
-                //             // var_dump($dbCategory->getWizaplaceId());
-                //             var_dump($categoryToSuppress);
-                //         }
-                //     }
-                // }
-
-                //FIN TEST
-                // var_dump($em);
+                foreach($dbCategories as $dbCategory) {
+                    if(!in_array($dbCategory->getWizaplaceId(), $categoriesActive)) {
+                        $categoryToSuppress = $repository->findOneBy(
+                            array(
+                                'wizaplaceId' => $dbCategory->getWizaplaceId(),
+                            ));
+                        $em->remove($categoryToSuppress);
+                    }
+                }
 
                 $em->flush();
     }

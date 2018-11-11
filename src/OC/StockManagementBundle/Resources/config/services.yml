@@ -1,15 +1,9 @@
 services:
-#    oc_stock_management.example:
-#        class: OC\StockManagementBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
-
     oc_platform.get.catalog:
         class: OC\StockManagementBundle\CatalogGetter\OCCatalogGetter
 
     oc_platform.get.products:
         class: OC\StockManagementBundle\ProductsGetter\OCProductsGetter
-                # Ajout
-        # arguments: [%userPassword%, %userMail%]
 
     oc_platform.get.lowStockProductsCSV:
         class: OC\StockManagementBundle\LowStockProductsCSVGetter\OCLowStockProductsCSVGetter

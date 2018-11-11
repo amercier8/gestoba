@@ -27,18 +27,16 @@ class OCProductsVsCategoriesStockComparator
         foreach($categories as $category) {
             $name = $category->getName();
         }
-
-        // var_dump($productsFiltered);
         
+        $lowStockProducts = array();
         for ($i =  0; $i<count($productsFiltered); $i++) {
             $category = $repository->findBy(array(
                 'wizaplaceId' => $productsFiltered[$i]['wizaplaceCategoryId'],
             ));
-            if (empty($category)) {
-                $lowStockProducts[] = [];
-                // break;
-            } else if($productsFiltered[$i]['stock'] < $category[0]->getLowStock()) {
-                $lowStockProducts[] = $productsFiltered[$i];
+            if (!empty($category)) {
+                if($productsFiltered[$i]['stock'] < $category[0]->getLowStock()) {
+                    $lowStockProducts[] = $productsFiltered[$i];
+                }
             }
         }
     return $lowStockProducts;

@@ -234,17 +234,7 @@ header+form
     width: 20px;
 }
 
-/* html body form label
-{
-    width: 150px;
-} */
-
-/* table#fos_user_registration_form tbody
-{
-
-} */
-
-#supprimer
+.supprimer
 {
     color: #f43530;
 }
