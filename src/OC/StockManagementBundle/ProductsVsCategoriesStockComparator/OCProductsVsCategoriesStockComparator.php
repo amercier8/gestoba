@@ -28,6 +28,8 @@ class OCProductsVsCategoriesStockComparator
             $name = $category->getName();
         }
 
+        // var_dump($productsFiltered);
+        
         for ($i =  0; $i<count($productsFiltered); $i++) {
             $category = $repository->findBy(array(
                 'wizaplaceId' => $productsFiltered[$i]['wizaplaceCategoryId'],

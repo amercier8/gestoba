@@ -23,13 +23,28 @@ class OCCatalogGetter
             ]
         ]);
 
-        $response = $client->request('GET', '/api/v1/categories');
+        // $request = $client->
+        //Fonctionne, à garder !
+        // $response = $client->request('GET', '/api/v1/categories');
+        //Fin de à garder
+
+        $promise = $client->requestAsync('GET', '/api/v1/categories');
+        $response = $promise->wait();
+
         //Ci-dessous : exemple pour passer des paramètres dans l'URL
         // $response = $client->request('GET', '/api/v1/catalog/categories', ['query' => ['filter' => 'test']]);
+        
+        // $code = $response->getStatusCode();
+        // if ($code == 200) {
+        //     echo $code;
+        // } else {
+        //     echo $code;
+        // }
 
         $body = json_decode($response
             ->getBody()
             ->getContents(), true);
+
         // $code = $response->getStatusCode(); // 200
         // $reason = $response->getReasonPhrase();
 

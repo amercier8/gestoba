@@ -73,4 +73,8 @@ class UserManagementController extends Controller
         ));
     }
 
+    public function noRoleManageAction() {
+        return $this->render('OCUserBundle:Security:noRoleUser.html.twig');
+    }
+
 }

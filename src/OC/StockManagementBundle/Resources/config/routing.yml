@@ -12,16 +12,19 @@ oc_stock_management_getProducts:
         _controller: OCStockManagementBundle:StockManagement:getProducts
 
 oc_stock_management_manageCategories:
-    path:     /
+    path:     /manage/categories
     defaults:
         _controller: OCStockManagementBundle:StockManagement:manageCategories
 
 oc_stock_management_deleteLowSwtock:
-    # Conservé au cas où, à supprimer
-    # path:   /resetLowStock
     path:   /reset_low_stock
     defaults:
         _controller: OCStockManagementBundle:StockManagement:resetLowStock
+
+oc_stock_management_home:
+    path:   /
+    defaults:
+        _controller: OCStockManagementBundle:StockManagement:homeRedirect
 
 
 

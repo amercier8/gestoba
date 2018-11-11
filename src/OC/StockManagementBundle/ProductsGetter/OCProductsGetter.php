@@ -25,11 +25,17 @@ class OCProductsGetter
             // ]
         ]);
 
-        $response = $client->request('GET', '/api/v1/catalog/export');
+        //Fonctionne, à garder !
+        // $response = $client->request('GET', '/api/v1/catalog/export');
+        // Fin de à garder
 
-        $body = json_decode($response
-            ->getBody()
-            ->getContents(), true);
+        $response = $client->requestAsync('GET', '/api/v1/catalog/export');
+        $response = $client->request('GET', '/api/v1/catalog/export');
+        // $response = $promise->wait();
+
+            $body = json_decode($response
+                ->getBody()
+                ->getContents(), true);
 
             return $body;
     }

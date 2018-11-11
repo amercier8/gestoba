@@ -7,3 +7,8 @@ oc_user_management:
     path:   /manage/user
     defaults:
         _controller: OCUserBundle:UserManagement:getUser
+
+oc_user_management_noRoleMessage:
+    path: /norole
+    defaults:
+        _controller: OCUserBundle:UserManagement:noRoleManage

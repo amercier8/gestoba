@@ -20,10 +20,22 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class StockManagementController extends Controller
 {
+    public function homeRedirectAction() {
+        $userRole = $this->getUser()->getRoles();
+        if (in_array("ROLE_ADMIN", $userRole)) {
+            return $this->redirectToRoute('oc_users_management');
+        } elseif (in_array("ROLE_VENDOR", $userRole)){
+            return $this->redirectToRoute('oc_user_management');
+        } else {
+            return $this->redirectToRoute('oc_user_management_noRoleMessage');
+        }
+    }
+
+
     /**
     * @Security("has_role('ROLE_ADMIN')")
     */
-    public function getCategoriesAction() {
+    public function getCategoriesAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
         $repository = $this
@@ -43,6 +55,11 @@ class StockManagementController extends Controller
         $this->container->get('oc_platform.update.categories')->updateCategories($categories, $repository, $em);
 
         $listCategories = $repository->findAll();
+
+        $request
+        ->getSession()
+        ->getFlashBag()
+        ->add('notice', 'Catégories mises à jour');
 
         //Return n'a pas lieu d'être
         return $this->redirectToRoute('oc_users_management');

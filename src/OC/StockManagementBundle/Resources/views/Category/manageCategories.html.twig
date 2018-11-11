@@ -27,10 +27,18 @@
                 {% endif %}
             {% endfor %}
         </ul>
-        <button type="submit">Enreigstrer les modifications</button>
+        <button type="submit">Enregistrer les modifications</button>
     {{ form_end(formCategories) }}
 
-    <a href="{{ path('oc_stock_management_deleteLowSwtock') }}">Réinitialiser les niveaux de stock bas</a>
+    <a id="supprimer" href="{{ path('oc_stock_management_deleteLowSwtock') }}">Réinitialiser les niveaux de stock bas</a>
     {# fin du pas touche #}
+
+    <div id="popUp">
+        <p>Renseigner à "0" l'ensemble des niveaux de Stock Bas?</p>
+        <div id="crossPopUp">
+            <i class="fas fa-times"></i>
+        </div>
+        <button id="confirmSuppress">Confirmer</button>
+    </div>
 
 {% endblock %}

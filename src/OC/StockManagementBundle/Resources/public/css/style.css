@@ -97,6 +97,12 @@ h1
     font-size: 40px;
 }
 
+h1 a
+{
+    text-decoration: none;
+    color: #f45844;
+}
+
 h1, h3
 {
     color: #f45844;
@@ -228,7 +234,56 @@ header+form
     width: 20px;
 }
 
-html body form label
+/* html body form label
 {
     width: 150px;
+} */
+
+/* table#fos_user_registration_form tbody
+{
+
+} */
+
+#supprimer
+{
+    color: #f43530;
+}
+
+#flash-notice
+{
+    position: absolute;
+    top: 160px;
+    right: 200px;
+    color: #f45844;
+    background-color: #dfe0e2;
+    /* border: 1px solid #2f292b; */
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 0.1875rem 0.3125rem 0.0625rem rgba(0, 0, 0, 0.501);
+}
+
+#flash-notice+p
+{
+    vertical-align: middle;
+}
+
+#cross, #crossPopUp
+{
+    cursor: pointer;
+    position: absolute;
+    top: 0px;
+    left: 280px;
+}
+
+#popUp
+{
+    position: relative;
+    top: -70px;
+    display: none;
+    color: #f45844;
+    background-color: #dfe0e2;
+    /* border: 1px solid #2f292b; */
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 0.1875rem 0.3125rem 0.0625rem rgba(0, 0, 0, 0.501);
 }
